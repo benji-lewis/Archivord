@@ -1,0 +1,49 @@
+openapi: 3.0.0
+info:
+  title: Archivord API
+  version: 1.0.0
+paths: {}
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/benjisoft/Archivord.API/draft1.0.0
+components:
+  schemas:
+    Guilds:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Guild'
+    Guild:
+      type: object
+      properties:
+        guildName:
+          type: string
+        channels:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Channel'
+    Channel:
+      type: object
+      properties:
+        channelName:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        messages:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Message'
+    Message:
+      type: object
+      properties:
+        content:
+          type: string
+        authorId:
+          type: string
+        authorUsername:
+          type: string
+        authorNick:
+          type: string
+          nullable: true
