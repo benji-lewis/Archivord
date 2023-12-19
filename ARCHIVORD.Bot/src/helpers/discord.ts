@@ -1,5 +1,5 @@
 
-import { Guild, GuildChannel, TextChannel, ChannelType, Client, Message, Collection } from 'discord.js';
+import { Guild, TextChannel, ChannelType, Client } from 'discord.js';
 import { archivord } from '../index.d';
 
 /** 
@@ -32,7 +32,7 @@ function getServersByUser(userId: string, client: Client): Guild[] {
 async function getChannelsByServer(guild: Guild): Promise<TextChannel[]> {
 	const channels: TextChannel[] = [];
 
-	let chans = await guild.channels.fetch()
+	const chans = await guild.channels.fetch();
 	chans.forEach((channel) => {
 		if (channel != null && channel.type === ChannelType.GuildText) {
 			channels.push(channel as TextChannel);
@@ -55,9 +55,9 @@ async function getChannelMetadata(channel: TextChannel): Promise<archivord.Chann
 	const metadata: archivord.Channel = {
 		channelName: channel.name,
 		roles: []
-	}
+	};
 
 	return metadata;
 }
 
-export { getServersByUser, getChannelsByServer, getChannelMetadata }
+export { getServersByUser, getChannelsByServer, getChannelMetadata };

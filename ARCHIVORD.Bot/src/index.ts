@@ -1,8 +1,8 @@
 //#region Imports
-import { Client, ClientOptions, Events, Interaction, Message, TextChannel } from 'discord.js';
+import { Client, ClientOptions, Events, Interaction, TextChannel } from 'discord.js';
 import { resolve } from 'path';
 import { archivord } from './index.d';
-import { writeChannelMetadataToFirestore, writeGuildDataToFirestore, writeMessagesToFirestore } from "./helpers/firebase";
+import { writeChannelMetadataToFirestore, writeMessagesToFirestore } from './helpers/firebase';
 import { Timestamp } from '@google-cloud/firestore';
 //#endregion
 
@@ -22,7 +22,7 @@ const discordConfig: ClientOptions = {
 		// 	'GuildMembers',
 		'MessageContent'
 	]
-}
+};
 
 const client = new Client(discordConfig);
 
@@ -57,7 +57,7 @@ async function invokeInitialBackup(inter: Interaction) {
 	const invokeTime = new Date().getTime();
 	//#region Gets the specific channel
 	let messageList: [string?] = [];
-	if (!inter.channelId || !inter.guildId || !inter.guild) throw new Error("Not supported in DMs");
+	if (!inter.channelId || !inter.guildId || !inter.guild) throw new Error('Not supported in DMs');
 	const guildId = inter.guildId;
 	const chanId = inter.channelId;
 	let channel = client.channels.cache.get(chanId) as TextChannel;
@@ -65,21 +65,21 @@ async function invokeInitialBackup(inter: Interaction) {
 		try {
 			channel = await client.channels.fetch(chanId) as TextChannel;
 		} catch (err) {
-			throw new Error("Channel not found" + err);
+			throw new Error('Channel not found' + err);
 		}
 	}
-	if (!channel) throw new Error("Channel not found");
+	if (!channel) throw new Error('Channel not found');
 	//#endregion
 	//#region Sets metadata
 	const chnlMdta = await getChannelMetadata(channel);
 	writeChannelMetadataToFirestore(guildId, chanId, chnlMdta);
 	// writeGuildDataToFirestore(guildId, inter.guild.name);
-	console.log("Started backup of " + chnlMdta.channelName);
+	console.log('Started backup of ' + chnlMdta.channelName);
 	let done: boolean = false;
 	while (!done) {
 		const before = messageList.length > 0 ? messageList[messageList.length - 1] : undefined;
-		messageList = []
-		let msgData: archivord.Messages = {};
+		messageList = [];
+		const msgData: archivord.Messages = {};
 		const messages = await channel.messages.fetch({ limit: 100, before });
 		if (messages.size < 100) {
 			done = true;
@@ -90,11 +90,11 @@ async function invokeInitialBackup(inter: Interaction) {
 				authorId: message.author.id,
 				authorUsername: message.author.username,
 				timestamp: Timestamp.fromDate(message.createdAt), // Convert to epoch timestamp
-			}
+			};
 			messageList.push(message.id);
 		});
 		await writeMessagesToFirestore(guildId as string, chanId as string, msgData);
 	}
-	console.log("Done!")
-	console.log("That took " + (new Date().getTime() - invokeTime) + "ms");
+	console.log('Done!');
+	console.log('That took ' + (new Date().getTime() - invokeTime) + 'ms');
 }
