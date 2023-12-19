@@ -5,7 +5,7 @@
   },
   "functions": [
     {
-      "source": "ARCHIVORD.API",
+      "source": "ARCHIVORD.API/",
       "codebase": "default",
       "ignore": [
         "node_modules",
@@ -14,8 +14,8 @@
         "firebase-debug.*.log"
       ],
       "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint",
-        "npm --prefix \"$RESOURCE_DIR\" run build"
+        "npm --prefix ARCHIVORD.API/ run lint",
+        "npm --prefix ARCHIVORD.API/ run build"
       ]
     }
   ],
