@@ -64,8 +64,8 @@ async function invokeInitialBackup(inter: Interaction) {
 	if (!channel) {
 		try {
 			channel = await client.channels.fetch(chanId) as TextChannel;
-		} catch (error) {
-			throw new Error("Channel not found");
+		} catch (err) {
+			throw new Error("Channel not found" + err);
 		}
 	}
 	if (!channel) throw new Error("Channel not found");
@@ -74,6 +74,7 @@ async function invokeInitialBackup(inter: Interaction) {
 	const chnlMdta = await getChannelMetadata(channel);
 	writeChannelMetadataToFirestore(guildId, chanId, chnlMdta);
 	// writeGuildDataToFirestore(guildId, inter.guild.name);
+	console.log("Started backup of " + chnlMdta.channelName);
 	let done: boolean = false;
 	while (!done) {
 		const before = messageList.length > 0 ? messageList[messageList.length - 1] : undefined;
