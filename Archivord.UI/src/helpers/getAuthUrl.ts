@@ -1,0 +1,1 @@
+export const getAuthUrl = window.config.AUTH_URL
