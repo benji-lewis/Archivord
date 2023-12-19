@@ -3,100 +3,100 @@ info:
   title: Archivord API
   version: draft1.0.1
   description: "A *currently* private version of the Archivord API. Eventually this may be released to power users but for now is only for use between the Archivord WebUI and the Archivord Firebase."
-security: 
+security:
   - m2m: []
-paths: 
+paths:
   /guilds:
-    get: 
+    get:
       summary: Returns a list of guilds the specified user can access that are archived
-      responses: 
-        200: 
+      responses:
+        200:
           description: Success
-          content: 
-            application/json: 
-              schema: 
+          content:
+            application/json:
+              schema:
                 type: array
-                items: 
+                items:
                   description: ID of each guild
                   type: string
                   example: "624200301770965043"
-  /guilds/{guildId}/channels: 
+  /guilds/{guildId}/channels:
     get:
       summary: Returns a list of channels the specified user can access
-      parameters: 
+      parameters:
         - in: path
           name: guildId
-          schema: 
+          schema:
             type: string
           required: true
-      responses: 
-        200: 
+      responses:
+        200:
           description: Success
-          content: 
-            application/json: 
-              schema: 
+          content:
+            application/json:
+              schema:
                 type: array
-                items: 
+                items:
                   description: id
                   type: string
-  /guilds/{guildId}/channels/{channelId}/messages: 
-    get: 
+  /guilds/{guildId}/channels/{channelId}/messages:
+    get:
       summary: Returns a list of messages from the channel
-      parameters: 
+      parameters:
         - in: path
           name: channelId
-          schema: 
+          schema:
             type: string
           required: true
         - in: path
           name: guildId
-          schema: 
+          schema:
             type: string
           required: true
         - in: query
           name: before
           description: Specifies where to start retrieving data. Data is always retrieved in reverse chronological order
-          schema: 
+          schema:
             type: string
         - in: query
           name: limitTo
           description: How many records to return
-          schema: 
+          schema:
             type: integer
             minimum: 1
             maximum: 100
       description: ID of the channel to query
-      responses: 
-        200: 
+      responses:
+        200:
           description: Success
-          content: 
-            application/json: 
-              schema: 
-                $ref: '#/components/schemas/Messages'
-      
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Messages"
+
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/benjisoft/Archivord.API/draft1.0.0
 components:
-  securitySchemes: 
-    m2m: 
+  securitySchemes:
+    m2m:
       type: http
       scheme: bearer
     oauth:
       type: oauth2
       description: OAuth Implementation *Coming Soon*
-      flows: 
-        implicit: 
+      flows:
+        implicit:
           authorizationUrl: https://example.com
-          scopes: 
+          scopes:
             read: Read data
             write: Write data
   schemas:
     Guilds:
       type: object
       additionalProperties:
-        $ref: '#/components/schemas/Guild'
+        $ref: "#/components/schemas/Guild"
     Guild:
       type: object
       properties:
@@ -105,7 +105,7 @@ components:
         channels:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/Channel'
+            $ref: "#/components/schemas/Channel"
     Channel:
       type: object
       properties:
@@ -120,7 +120,7 @@ components:
         messages:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/Message'
+            $ref: "#/components/schemas/Message"
     Message:
       type: object
       properties:
@@ -136,4 +136,4 @@ components:
     Messages:
       type: object
       additionalProperties:
-        $ref: '#/components/schemas/Message'
+        $ref: "#/components/schemas/Message"
