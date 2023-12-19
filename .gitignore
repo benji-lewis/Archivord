@@ -86,3 +86,14 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Env Files
+.env
+.env.*
+!.env.example
+
+# Compiled Files
+dist/
+
+# Auth Files
+serviceAccount.json
