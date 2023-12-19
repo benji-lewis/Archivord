@@ -8,6 +8,6 @@ export const Authorize = () => {
   }, [])
 
   const redirect = () => window.location.href = getAuthUrl
-  
-  return <Typography variant="h4">Redirecting to authorization URL<br/>Click <Link onClick={redirect}>here</Link> if you are not directed automatically.</Typography>
+
+  return <Typography variant="h4">Redirecting to authorization URL<br />Click <Link onClick={redirect}>here</Link> if you are not directed automatically.</Typography>
 }

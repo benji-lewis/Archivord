@@ -7,8 +7,7 @@ import { ChannelCard } from "../components/ChannelCard"
 
 export const GuildArchive = ({ }) => {
   const location = useLocation()
-  const navigate = useNavigate()
-  const { guildId, guildName} = location.state
+  const { guildId, guildName } = location.state
   const [guildPreview, setGuildPreview] = useState({})
   const [guildChannels, setGuildChannels] = useState(new Array<Channel>)
 

@@ -17,7 +17,7 @@ export const Authorized = () => {
 
     sessionStorage.setItem('token', JSON.stringify(`${tokenType} ${accessToken}`))
   }
-  
 
-  return <Typography variant="h4">Directing to archive<br/>Click <Link onClick={() => navigate('archive')}>here</Link> if you are not directed automatically.</Typography>
+
+  return <Typography variant="h4">Directing to archive<br />Click <Link onClick={() => navigate('archive')}>here</Link> if you are not directed automatically.</Typography>
 }

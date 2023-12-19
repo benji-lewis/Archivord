@@ -12,12 +12,10 @@ export const getGuildChannels = (guildId: string): Promise<Array<Channel>> => {
       {
         Id: "624290305918631947",
         Name: "general",
-        Archived: true,
       },
       {
         Id: "624202254236516393",
         Name: "nerd-shit",
-        Archived: true,
       }
     ])
   })
