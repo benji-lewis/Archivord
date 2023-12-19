@@ -97,3 +97,5 @@ dist/
 
 # Auth Files
 serviceAccount.json
+
+.firebase/
