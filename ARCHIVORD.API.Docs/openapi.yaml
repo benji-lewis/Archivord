@@ -8,18 +8,20 @@ security:
 paths: 
   /guilds:
     get: 
-      summary: Returns a list of guilds the specified user can access that are archived
+      summary: Get Guilds
+      description: Returns a list of guilds the specified user can access that are archived
       responses: 
         200: 
           description: Success
           content: 
             application/json: 
               schema: 
-                type: array
-                items: 
-                  description: ID of each guild
-                  type: string
-                  example: "624200301770965043"
+                $ref: "#/components/schemas/Guilds"
+        401:
+          description: Discord Token Invalid
+          content:
+            text:
+              example: "Invalid Discord token"
   /guilds/{guildId}/channels: 
     get:
       summary: Returns a list of channels the specified user can access
@@ -35,10 +37,12 @@ paths:
           content: 
             application/json: 
               schema: 
-                type: array
-                items: 
-                  description: id
-                  type: string
+                $ref: "#/components/schemas/Channels"
+        401:
+          description: Discord Token Invalid
+          content:
+            text:
+              example: "Invalid Discord token"
   /guilds/{guildId}/channels/{channelId}/messages: 
     get: 
       summary: Returns a list of messages from the channel
@@ -73,22 +77,24 @@ paths:
             application/json: 
               schema: 
                 $ref: '#/components/schemas/Messages'
+        401:
+          description: Discord Token Invalid
+          content:
+            text:
+              example: "Invalid Discord token"
       
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/benjisoft/Archivord.API/draft1.0.0
+  - description: Firebase Production API
+    url: https://widget-rzm2py263q-ew.a.run.app
 components:
   securitySchemes: 
-    m2m: 
-      type: http
-      scheme: bearer
     oauth:
       type: oauth2
       description: OAuth Implementation *Coming Soon*
       flows: 
-        implicit: 
-          authorizationUrl: https://example.com
+        authorizationCode: 
+          authorizationUrl: https://discord.com/oauth2/authorize
+          tokenUrl: https://discord.com/api/oauth2/token
           scopes: 
             read: Read data
             write: Write data
@@ -102,10 +108,13 @@ components:
       properties:
         guildName:
           type: string
-        channels:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/Channel'
+        icon: 
+          type: string
+          description: Icon ID
+    Channels:
+      type: object
+      additionalProperties: 
+        $ref: '#/components/schemas/Channel'
     Channel:
       type: object
       properties:
@@ -121,6 +130,10 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/Message'
+    Messages:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Message'
     Message:
       type: object
       properties:
@@ -133,7 +146,3 @@ components:
         authorNick:
           type: string
           nullable: true
-    Messages:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/Message'
