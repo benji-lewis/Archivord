@@ -7,6 +7,9 @@ import { checkDiscordToken } from './helpers/auth';
 import { archivord } from './index.d';
 const app = express();
 
+const readmeApiKey = process.env.README_API_KEY as string;
+const readmeSecret = process.env.README_SECRET as string;
+
 app.use(checkDiscordToken);
 app.use((req: archivord.ReqUserInfo, res, next) => {
 	const authHeader = req.headers.authorization;
@@ -16,7 +19,7 @@ app.use((req: archivord.ReqUserInfo, res, next) => {
 	}
 	const token = authHeader.split(' ')[1];
 
-	readme.log('rdme_xn8s9h06045b8f21df0cefbd65178234b54cdfd3918c48be52af543ca773b70de70da9', req, res, {
+	readme.log(readmeApiKey, req, res, {
 		// User's API Key
 		apiKey: token,
 		// Username to show in ReadMe's dashboard
@@ -82,6 +85,23 @@ app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
 		}
 	};
 	res.status(501).send(dummyData);
+});
+
+app.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
+	// Verify the request is legitimate and came from ReadMe.
+	const signature = req.headers['readme-signature'] as string;
+	try {
+		readme.verifyWebhook(req.body, signature, readmeSecret);
+	} catch (e: any) {
+		// Handle invalid requests
+		return res.status(401).json({ error: e.message });
+	}
+	// Fetch the user from the database and return their data for use with OpenAPI variables.
+	// const user = await db.find({ email: req.body.email })
+	return res.json({
+		// OAS Security variables
+		oauth: 'oauth',
+	});
 });
 
 //TODO: Implement proper CORS
