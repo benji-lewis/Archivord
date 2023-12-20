@@ -23,7 +23,6 @@ export const Authorized = () => {
   const getUserDetails = () => {
     getUsername()
     .then(res => {
-      console.log('getusername', res)
       navigate('/archive', { state: { 
         ...location.state,
         id: res.id,

@@ -1,5 +1,3 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { Guild } from "../interfaces/Guild";
 import { ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material"
 import TagRoundedIcon from '@mui/icons-material/TagRounded';
 import { Channel } from "../interfaces/Channel";
@@ -18,8 +16,6 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
 }))
 
 export const ChannelCard = ({ channel, isSelected = false, selectFunction }: ServerCardProps) => {
-  const navigate = useNavigate()
-  const location = useLocation()
   const { id, name } = channel
 
   const navigateToGuild = () => {

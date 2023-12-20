@@ -1,4 +1,3 @@
-import { useLocation, useNavigate } from "react-router-dom";
 import { Guild } from "../interfaces/Guild";
 import { ListItemAvatar, ListItemButton, ListItemText, styled } from "@mui/material"
 import { GuildAvatar } from "./GuildAvatar";
@@ -17,8 +16,6 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
 }))
 
 export const ServerCard = ({ server, isSelected = false, selectFunction }: ServerCardProps) => {
-  const navigate = useNavigate()
-  const location = useLocation()
   const { id, name, icon } = server
 
   var iconUrl = `https://cdn.discordapp.com/icons/${id}/`

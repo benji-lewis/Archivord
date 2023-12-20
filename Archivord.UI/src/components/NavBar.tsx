@@ -34,10 +34,9 @@ export const NavBar = ({}) => {
   }
 
   const getAccountImage = () => {
-    console.log(location.state)
     if (!location.state?.id) 
       return <AccountCircleIcon />
-    console.log('!location.state?.avatar', !location.state?.avatar)
+
     if (!location.state?.avatar) 
       return <Avatar sx={{ bgcolor: getUiColour() }}>{getAcronym(location.state?.global_name || location.state?.username)}</Avatar>
     
