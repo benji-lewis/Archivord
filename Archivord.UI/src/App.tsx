@@ -5,6 +5,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getToken } from './helpers/getToken';
 import * as Pages from './pages/index'
+import { NavBar } from './components/NavBar';
 
 function App() {
   const ProtectedRoute = ({ element } : {element: ReactElement}) => {
@@ -16,16 +17,20 @@ function App() {
   };
   
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route index element={<Pages.Home />} />
-      <Route path='authorize' element={<Pages.Authorize />} />
-      <Route path='authorized' element={<Pages.Authorized />} />
-      <Route path='archive' element={<ProtectedRoute element={<Pages.Archive />} />} />
-      <Route path='archive/:guildId' element={<ProtectedRoute element={<Pages.GuildArchive />} />} />
-      <Route path='archive/:guildId/:channelId' element={<ProtectedRoute element={<Pages.ChannelArchive />} />} />
-    </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+      <NavBar />
+      <Routes>
+        <Route index element={<Pages.Home />} />
+        <Route path='authorize' element={<Pages.Authorize />} />
+        <Route path='authorized' element={<Pages.Authorized />} />
+        <Route path='archive' element={<ProtectedRoute element={<Pages.Archive />} />} />
+        <Route path='archive/:guildId' element={<ProtectedRoute element={<Pages.GuildArchive />} />} />
+        <Route path='archive/:guildId/:channelId' element={<ProtectedRoute element={<Pages.ChannelArchive />} />} />
+        <Route path='logout' element={<ProtectedRoute element={<Pages.LogOut />} />} />
+      </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 

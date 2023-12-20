@@ -1,9 +1,13 @@
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, Toolbar, Tooltip, Typography, MenuItem } from "@mui/material"
+import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, Toolbar, Tooltip, Typography, MenuItem, styled } from "@mui/material"
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getUiColour } from "../helpers/colourHelper";
 import { getAcronym } from "../helpers/stringHelper";
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main
+}))
 
 export const NavBar = ({}) => {
   const pages = ["Home", "Archive", "Configuration"]
@@ -21,6 +25,10 @@ export const NavBar = ({}) => {
     setAnchorElUser(null);
   };
 
+  const handleLogoutPress = () => {
+    navigate('/logout')
+  }
+
   const homeButtonClickHandler = () => {
     navigate('/', { state: { ...location.state } })
   }
@@ -37,7 +45,6 @@ export const NavBar = ({}) => {
     ? <Avatar alt={location.state?.username} src={`https://cdn.discordapp.com/avatars/${location.state.id}/${location.state.avatar}.gif`} />
     : <Avatar alt={location.state?.username} src={`https://cdn.discordapp.com/avatars/${location.state.id}/${location.state.avatar}.png`} />
   }
-
 
   return (
     <AppBar position="static">
@@ -90,11 +97,9 @@ export const NavBar = ({}) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={'logout'} onClick={handleLogoutPress}>
+                  <Typography textAlign="center" >Logout</Typography>
                 </MenuItem>
-              ))}
             </Menu>
           </Box>
         </Toolbar>
