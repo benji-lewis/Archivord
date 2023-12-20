@@ -29,6 +29,10 @@ export const NavBar = ({}) => {
     navigate('/logout')
   }
 
+  const handleLoginPress = () => {
+    navigate('/authorize')
+  }
+
   const homeButtonClickHandler = () => {
     navigate('/', { state: { ...location.state } })
   }
@@ -96,9 +100,10 @@ export const NavBar = ({}) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-                <MenuItem key={'logout'} onClick={handleLogoutPress}>
-                  <Typography textAlign="center" >Logout</Typography>
-                </MenuItem>
+              {!location.state?.id 
+                ? <MenuItem key={'logout'} onClick={handleLoginPress}><Typography textAlign="center" >Login</Typography></MenuItem>
+                : <MenuItem key={'logout'} onClick={handleLogoutPress}><Typography textAlign="center" >Logout</Typography></MenuItem>
+              }
             </Menu>
           </Box>
         </Toolbar>
