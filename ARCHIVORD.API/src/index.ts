@@ -3,6 +3,7 @@ import { onRequest } from 'firebase-functions/v2/https';
 // import { debug } from 'firebase-functions/logger';
 import readme = require('readmeio');
 import express = require('express');
+import cors = require('cors');
 import { checkDiscordToken } from './helpers/auth';
 import { archivord } from './index.d';
 const app = express();
@@ -10,6 +11,11 @@ const app = express();
 const readmeApiKey = process.env.README_API_KEY as string;
 const readmeSecret = process.env.README_SECRET as string;
 
+app.use(cors({ origin: [
+	'http://localhost:5173',
+	'https://archivord.web.app',
+	'https://archivord.benjilewis.dev',
+] }));
 app.use(checkDiscordToken);
 app.use((req: archivord.ReqUserInfo, res, next) => {
 	const authHeader = req.headers.authorization;
@@ -46,6 +52,7 @@ app.get('/guilds', (req, res) => {
 
 		}
 	};
+	res.set('Content-Type', 'application/json');
 	res.set('Access-Control-Allow-Origin', '*');
 	res.status(501).send(dummyData);
 });
@@ -61,7 +68,7 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 			'topic': 'second test chat',
 		},
 	};
-	res.set('Access-Control-Allow-Origin', '*');
+	res.set('Content-Type', 'application/json');
 	res.status(501).send(dummyData);
 });
 
@@ -86,7 +93,7 @@ app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
 			'authorNick': 'string'
 		}
 	};
-	res.set('Access-Control-Allow-Origin', '*');
+	res.set('Content-Type', 'application/json');
 	res.status(501).send(dummyData);
 });
 
@@ -107,9 +114,4 @@ app.post('/webhook', express.json({ type: 'application/json' }), async (req, res
 	});
 });
 
-//TODO: Implement proper CORS
-exports.widget = onRequest(
-	{
-		region: 'europe-west1',
-		cors: ['localhost:5173', 'archivord.web.app', 'archivord.benjilewis.dev']
-	}, app);
+exports.widget = onRequest({ region: 'europe-west1' }, app);
