@@ -1,6 +1,8 @@
 import axios from 'axios';
 import type { archivord } from '../index.d';
 import type { RequestHandler } from 'express';
+// Available log levels: log, info, debug, warn, error
+import { debug, warn, error } from 'firebase-functions/logger';
 
 /**
  * Checks a provided discord token is valid
@@ -20,6 +22,7 @@ export const checkDiscordToken: RequestHandler = async (req: archivord.ReqUserIn
 
 	const token = authHeader.split(' ')[1];
 	try {
+		debug('Validating Token');
 		const response = await axios.get('https://discord.com/api/oauth2/@me', {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -28,12 +31,17 @@ export const checkDiscordToken: RequestHandler = async (req: archivord.ReqUserIn
 
 		if (response.status !== 200) {
 			res.status(401).send('Invalid Discord token');
+			warn('Invalid Discord token');
 			return;
 		}
 
+		debug('Token Validated');
+
 		req.user = response.data;
 		next();
-	} catch (error) {
+	} catch (err) {
+		error('Error verifying Discord token', err);
 		res.status(500).send('Error verifying Discord token');
+		return;
 	}
 };
