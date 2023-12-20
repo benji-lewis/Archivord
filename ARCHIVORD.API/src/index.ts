@@ -46,6 +46,7 @@ app.get('/guilds', (req, res) => {
 
 		}
 	};
+	res.set('Access-Control-Allow-Origin', '*');
 	res.status(501).send(dummyData);
 });
 
@@ -60,6 +61,7 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 			'topic': 'second test chat',
 		},
 	};
+	res.set('Access-Control-Allow-Origin', '*');
 	res.status(501).send(dummyData);
 });
 
@@ -84,6 +86,7 @@ app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
 			'authorNick': 'string'
 		}
 	};
+	res.set('Access-Control-Allow-Origin', '*');
 	res.status(501).send(dummyData);
 });
 
