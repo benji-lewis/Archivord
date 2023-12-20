@@ -17,6 +17,6 @@ export const getGuildPreview = (guildId: string): Promise<GuildPreview> => {
   return httpClient.get(`https://discord.com/api/guilds/${guildId}/preview`)
 }
 
-export const getChannelMessages = (guildId: string, channelId: string): Promise<Array<Message>> => {
+export const getChannelMessages = (guildId: string, channelId: string): Promise<Message> => {
   return httpClient.get(`${apiUrl}/guilds/${guildId}/channels/${channelId}/messages`)
 }

@@ -31,8 +31,6 @@ export const GuildSideBar = ({ selectedGuild, setSelectedGuild, children }: { se
     setSelectedGuild(id)
   }
 
-  Object.entries(userGuilds).map(([key, value]) => console.log(key, value))
-
   return (
     <>
       <Box
