@@ -41,4 +41,4 @@ app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
 });
 
 //TODO: Implement proper CORS
-exports.widget = onRequest({region: 'europe-central1'}, app);
+exports.widget = onRequest({ region: 'europe-west1' }, app);
