@@ -2,7 +2,8 @@ import { Box, CssBaseline, List, ListItem, styled } from '@mui/material'
 import { useEffect, useState } from 'react';
 import { Channel } from '../interfaces/Channel';
 import { ChannelCard } from './ChannelCard';
-import { getGuildChannels } from '../services/guilds.service';
+import * as guildsService from '../services/guilds.service'
+import { Message } from '../interfaces/Message';
 
 const drawerWidth = 240
 
@@ -14,17 +15,23 @@ const Drawer = styled('div', {})(({ theme }) => ({
 
 }));
 
-export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: number | undefined }) => {
-  const [channels, setChannels] = useState<Array<Channel>>([])
-  const [selectedChannel, setSelectedChannel] = useState<number | null>(null)
+export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: string | undefined }) => {
+  const [channels, setChannels] = useState<Channel>([])
+  const [selectedChannel, setSelectedChannel] = useState<string | null>(null)
+  const [messages, setMessages] = useState<Array<Message>>([])
 
   useEffect(() => {
     if (selectedGuild)
-      getGuildChannels(selectedGuild).then(res => setChannels(res))
+      guildsService.getGuildChannels(selectedGuild).then(res => setChannels(res))
   }, [selectedGuild])
+
+  useEffect(() => {
+    if (selectedChannel && selectedGuild)
+      guildsService.getChannelMessages(selectedGuild, selectedChannel).then(res => setMessages(res))
+  }, [])
   
 
-  const selectChannel = (id: number) => {
+  const selectChannel = (id: string) => {
     setSelectedChannel(id)
   }
 
@@ -37,11 +44,11 @@ export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: number | unde
         <Drawer
         >
           <List>
-            {channels.map((channel: Channel) => (
-              <ListItem key={channel.id} disablePadding>
-                <ChannelCard channel={channel} isSelected={selectedChannel ? channel.id === selectedChannel : false} selectFunction={selectChannel} />
+          {Object.entries(channels).map(([key, value]) => ( 
+            <ListItem key={key} disablePadding>
+                <ChannelCard id={key} name={value.name} category={value.topic} isSelected={selectedChannel ? key === selectedChannel : false} selectFunction={selectChannel} />
               </ListItem>
-            ))}
+          ))}
           </List>
         </Drawer>
         {/* TODO: Insert chats here */}

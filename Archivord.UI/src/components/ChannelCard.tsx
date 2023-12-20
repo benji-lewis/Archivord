@@ -1,9 +1,10 @@
 import { ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material"
 import TagRoundedIcon from '@mui/icons-material/TagRounded';
-import { Channel } from "../interfaces/Channel";
 
 interface ServerCardProps {
-  channel: Channel;
+  id: string;
+  name: string;
+  category: string | null;
   isSelected: boolean;
   selectFunction: Function;
 }
@@ -19,9 +20,7 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   }
 }))
 
-export const ChannelCard = ({ channel, isSelected = false, selectFunction }: ServerCardProps) => {
-  const { id, name } = channel
-
+export const ChannelCard = ({ id, name, category, isSelected = false, selectFunction }: ServerCardProps) => {
   const navigateToGuild = () => {
     selectFunction(id)
   }

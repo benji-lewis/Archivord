@@ -1,17 +1,12 @@
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, Toolbar, Tooltip, Typography, MenuItem, styled } from "@mui/material"
+import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, Toolbar, Tooltip, Typography, MenuItem } from "@mui/material"
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getUiColour } from "../helpers/colourHelper";
 import { getAcronym } from "../helpers/stringHelper";
 
-const StyledContainer = styled(Container)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main
-}))
-
 export const NavBar = ({}) => {
   const pages = ["Home", "Archive", "Configuration"]
-  const settings = ['Logout'];
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const navigate = useNavigate()
