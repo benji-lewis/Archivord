@@ -24,7 +24,8 @@ paths:
               example: "Invalid Discord token"
   /guilds/{guildId}/channels: 
     get:
-      summary: Returns a list of channels the specified user can access
+      summary: Get Channels
+      description: Returns a list of channels the specified user can access
       parameters: 
         - in: path
           name: guildId
@@ -45,7 +46,8 @@ paths:
               example: "Invalid Discord token"
   /guilds/{guildId}/channels/{channelId}/messages: 
     get: 
-      summary: Returns a list of messages from the channel
+      summary: Get archived messages
+      description: Returns a list of messages from the channel
       parameters: 
         - in: path
           name: channelId
@@ -69,7 +71,7 @@ paths:
             type: integer
             minimum: 1
             maximum: 100
-      description: ID of the channel to query
+            description: ID of the channel to query
       responses: 
         200: 
           description: Success
