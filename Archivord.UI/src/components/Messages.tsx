@@ -2,7 +2,7 @@ import { styled } from "@mui/material"
 import { Message, MessageData } from "../interfaces/Message"
 import { DiscordMessages, DiscordMessage } from "@skyra/discord-components-react"
 
-const Box = styled('div', {})(({ theme }) => ({
+const Box = styled('div', {})(() => ({
   width: "100% !important",
   height: '100% !important',
   border: 'none'

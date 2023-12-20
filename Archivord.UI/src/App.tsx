@@ -1,5 +1,4 @@
 import { ReactElement } from 'react'
-import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getToken } from './helpers/getToken';
 import * as Pages from './pages/index'
