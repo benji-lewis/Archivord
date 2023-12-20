@@ -6,16 +6,16 @@ export const getArchivedGuilds = (guildIds: Array<number>): Promise<Array<number
   return new Promise(resolve => resolve(guildIds))
 }
 
-export const getGuildChannels = (guildId: string): Promise<Array<Channel>> => {
+export const getGuildChannels = (guildId: number): Promise<Array<Channel>> => {
   return new Promise((resolve) => {
     resolve([
       {
-        Id: "624290305918631947",
-        Name: "general",
+        id: 624290305918631947,
+        name: "general",
       },
       {
-        Id: "624202254236516393",
-        Name: "nerd-shit",
+        id: 624202254236516393,
+        name: "nerd-shit",
       }
     ])
   })

@@ -1,25 +1,37 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { CardActionArea, ListItem, ListItemText, styled } from "@mui/material"
+import { Guild } from "../interfaces/Guild";
+import { ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material"
+import TagRoundedIcon from '@mui/icons-material/TagRounded';
 import { Channel } from "../interfaces/Channel";
 
-const Card = styled('div', {})(({ theme }) => ({
-  marginTop: theme.spacing(1),
-  marginBottom: theme.spacing(1),
-  backgroundColor: theme.palette.grey[800],
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[2],
-}));
+interface ServerCardProps {
+  channel: Channel;
+  isSelected: boolean;
+  selectFunction: Function;
+}
 
-export const ChannelCard = ({ guildId, channelData }: { guildId: string, channelData: Channel }) => {
-  const location = useLocation()
+const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
+  '&.Mui-selected': {
+    backgroundColor: theme.palette.secondary.light,
+    color: theme.palette.common.white,
+  },
+}))
+
+export const ChannelCard = ({ channel, isSelected = false, selectFunction }: ServerCardProps) => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const { id, name } = channel
+
+  const navigateToGuild = () => {
+    selectFunction(id)
+  }
+
   return (
-    <Card>
-      <CardActionArea onClick={() => navigate(`/archive/${guildId}/${channelData.Id}`, { state: { ...location.state, channelId: channelData.Id } })}>
-        <ListItem>
-          <ListItemText primary={channelData.Name} />
-        </ListItem>
-      </CardActionArea>
-    </Card>
+    <ListItemButtonStyled selected={isSelected} onClick={navigateToGuild}>
+      <ListItemIcon>
+        <TagRoundedIcon htmlColor="#949BA4" />
+      </ListItemIcon>
+      <ListItemText primary={name} />
+    </ListItemButtonStyled>
   )
 }

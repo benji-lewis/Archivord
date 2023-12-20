@@ -4,13 +4,15 @@ import { getArchivedGuilds } from "../services/guilds.service"
 import { Guild } from "../interfaces/Guild"
 import { GuildSideBar } from "../components/SideBar"
 import { canUserManageBots } from "../helpers/permissionsHelper"
+import { ChannelSideBar } from "../components/ChannelSideBar"
 
 
 export const Archive = () => {
+  const [selectedGuild, setSelectedGuild] = useState<number>()
 
   return (
-      <GuildSideBar>
-        <p>Testing test 123</p>
+      <GuildSideBar selectedGuild={selectedGuild} setSelectedGuild={setSelectedGuild}>
+        <ChannelSideBar selectedGuild={selectedGuild} />
       </GuildSideBar>
   )
 }

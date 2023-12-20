@@ -24,7 +24,6 @@ export const ServerCard = ({ server, isSelected = false, selectFunction }: Serve
   var iconUrl = `https://cdn.discordapp.com/icons/${id}/`
 
   const navigateToGuild = () => {
-    // navigate(`/archive/${id}`, { state: { ...location.state, guildId: id, guildName: name } })
     selectFunction(id)
   }
 

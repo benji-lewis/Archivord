@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { getToken } from './helpers/getToken';
 import * as Pages from './pages/index'
 import { NavBar } from './components/NavBar';
+import { Divider } from '@mui/material';
 
 function App() {
   const ProtectedRoute = ({ element } : {element: ReactElement}) => {
@@ -20,6 +21,7 @@ function App() {
     <>
       <BrowserRouter>
       <NavBar />
+      <Divider sx={{ background: '#26282C' }} />
       <Routes>
         <Route index element={<Pages.Home />} />
         <Route path='authorize' element={<Pages.Authorize />} />
