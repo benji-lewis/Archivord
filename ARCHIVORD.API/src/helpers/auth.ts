@@ -23,7 +23,7 @@ export const checkDiscordToken: RequestHandler = async (req: archivord.ReqUserIn
 	const token = authHeader.split(' ')[1];
 	try {
 		debug('Validating Token');
-		const response = await axios.get('https://discord.com/api/oauth2/@me', {
+		const response = await axios.get('https://discord.com/api/users/@me', {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
