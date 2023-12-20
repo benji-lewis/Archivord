@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getToken } from "./getToken"
-import { getClientId, getClientSecret } from './getAuthUrl';
+import { getClientId, getClientSecret } from './secretHelper';
 
 export class httpClient {
   static get(url: string, body?: object | null) {

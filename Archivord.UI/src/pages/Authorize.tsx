@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { getAuthUrl } from "../helpers/getAuthUrl"
+import { getAuthUrl } from "../helpers/secretHelper"
 import { Link, Typography } from "@mui/material"
 
 export const Authorize = () => {

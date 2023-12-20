@@ -2,7 +2,7 @@ import { httpClient } from "../helpers/api"
 import { Channel } from "../interfaces/Channel"
 import { GuildPreview } from "../interfaces/GuildPreview"
 
-export const getArchivedGuilds = (guildIds: Array<number>): Promise<Array<number>> => {
+export const getArchivedGuilds = (): Promise<Array<number>> => {
   return new Promise(resolve => resolve(guildIds))
 }
 
