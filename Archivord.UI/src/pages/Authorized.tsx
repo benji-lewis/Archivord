@@ -33,5 +33,5 @@ export const Authorized = () => {
     })
   }
 
-  return <Typography variant="h4">Directing to archive<br />Click <Link onClick={() => navigate('archive')}>here</Link> if you are not directed automatically.</Typography>
+  return <Typography variant="h4">Directing to archive<br />Click <Link onClick={getUserDetails}>here</Link> if you are not directed automatically.</Typography>
 }
