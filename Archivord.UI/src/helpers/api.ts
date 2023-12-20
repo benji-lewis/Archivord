@@ -28,14 +28,11 @@ export class httpClient {
 
   static async revoke_token() {
     const token = getToken()
-    return axios.post('https://discord.com/api/oauth2/token/revoke', {
-      token: token,
-      token_type_hint: 'access_token'
-    }, {
-      auth: {
-        username: clientId,
-        password: clientSecret,
-      }
-    }).then(res => res.data);
+    const formData = new FormData()
+    formData.append('token', token)
+    formData.append('token_type_hint', 'access_token')
+    formData.append('client_id', clientId)
+    formData.append('client_secret', clientSecret)
+    return axios.post('https://discord.com/api/oauth2/token/revoke', formData).then(res => res.data);
   }
 }

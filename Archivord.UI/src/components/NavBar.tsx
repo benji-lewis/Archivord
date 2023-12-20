@@ -6,7 +6,21 @@ import { getUiColour } from "../helpers/colourHelper";
 import { getAcronym } from "../helpers/stringHelper";
 
 export const NavBar = ({}) => {
-  const pages = ["Home", "Archive", "Configuration"]
+  const pages = [
+    {
+      title: "Home",
+      route: '/'
+    },
+    {
+      title: "Archive",
+      route: "/archive"
+    },
+    {
+      title: "Configuration",
+      route: "/config",
+      hidden: true
+    }
+  ]
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const navigate = useNavigate()
@@ -62,23 +76,21 @@ export const NavBar = ({}) => {
             Archivord
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.filter(x => !x?.hidden).map((page) => (
               <Button
-                key={page}
-                onClick={() => {}}
+                key={page.title}
+                onClick={() => {navigate(page.route)}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {getAccountImage()}
               </IconButton>
-            </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"

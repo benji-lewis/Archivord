@@ -2,7 +2,6 @@ import { useState } from "react"
 import { GuildSideBar } from "../components/GuildSideBar"
 import { ChannelSideBar } from "../components/ChannelSideBar"
 
-
 export const Archive = () => {
   const [selectedGuild, setSelectedGuild] = useState<string>()
 
