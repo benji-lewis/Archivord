@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getUserGuilds } from "../services/user.service"
 import { getArchivedGuilds } from "../services/guilds.service"
 import { Guild } from "../interfaces/Guild"
-import { GuildSideBar } from "../components/SideBar"
+import { GuildSideBar } from "../components/GuildSideBar"
 import { canUserManageBots } from "../helpers/permissionsHelper"
 import { ChannelSideBar } from "../components/ChannelSideBar"
 

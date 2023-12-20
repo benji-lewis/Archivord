@@ -44,6 +44,7 @@ export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: number | unde
             ))}
           </List>
         </Drawer>
+        {/* TODO: Insert chats here */}
       </Box>
     </>
   );
