@@ -4,7 +4,7 @@ info:
   version: draft1.0.1
   description: "A *currently* private version of the Archivord API. Eventually this may be released to power users but for now is only for use between the Archivord WebUI and the Archivord Firebase."
 security: 
-  - m2m: []
+  - oauth: []
 paths: 
   /guilds:
     get: 
@@ -96,8 +96,9 @@ components:
           authorizationUrl: https://discord.com/oauth2/authorize
           tokenUrl: https://discord.com/api/oauth2/token
           scopes: 
-            read: Read data
-            write: Write data
+            identify: "Access your username, avatar and banner"
+            email: "Access your email address"
+            guilds: "Know what servers you're in"
   schemas:
     Guilds:
       type: object
