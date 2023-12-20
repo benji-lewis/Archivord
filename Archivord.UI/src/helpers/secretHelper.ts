@@ -1,4 +1,4 @@
-export const getAuthUrl = window.config.AUTH_URL
-export const getClientId = window.config.CLIENT_ID
-export const getClientSecret = window.config.CLIENT_SECRET
-export const getApiUrl = window.config.API
+export const authUrl = window.config.AUTH_URL
+export const clientId = window.config.CLIENT_ID
+export const clientSecret = window.config.CLIENT_SECRET
+export const apiUrl = window.config.API

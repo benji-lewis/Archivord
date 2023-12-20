@@ -1,9 +1,10 @@
 import { httpClient } from "../helpers/api"
+import { apiUrl } from "../helpers/secretHelper"
 import { Channel } from "../interfaces/Channel"
 import { GuildPreview } from "../interfaces/GuildPreview"
 
-export const getArchivedGuilds = (): Promise<Array<number>> => {
-  return new Promise(resolve => resolve(guildIds))
+export const getArchivedGuilds = (): Promise<any> => {
+  return httpClient.get(`${apiUrl}/guilds`)
 }
 
 export const getGuildChannels = (guildId: number): Promise<Array<Channel>> => {

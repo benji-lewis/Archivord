@@ -1,14 +1,12 @@
 import axios from 'axios';
 import { getToken } from "./getToken"
-import { getClientId, getClientSecret } from './secretHelper';
+import { clientId, clientSecret } from './secretHelper';
 
 export class httpClient {
   static get(url: string, body?: object | null) {
     return axios.get(url, {
       params: body,
-      headers: {
-        ...this.getAuthorizationHeader(),
-      },
+      headers: { ...this.getAuthorizationHeader(), }
     }).then(res => res.data);
   }
 
@@ -35,8 +33,8 @@ export class httpClient {
       token_type_hint: 'access_token'
     }, {
       auth: {
-        username: getClientId,
-        password: getClientSecret,
+        username: clientId,
+        password: clientSecret,
       }
     }).then(res => res.data);
   }

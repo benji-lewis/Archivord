@@ -13,6 +13,10 @@ const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.light,
     color: theme.palette.common.white,
   },
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.dark + '!important',
+    color: theme.palette.common.white + '!important',
+  }
 }))
 
 export const ServerCard = ({ server, isSelected = false, selectFunction }: ServerCardProps) => {

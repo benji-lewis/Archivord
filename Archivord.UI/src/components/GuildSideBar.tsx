@@ -21,13 +21,19 @@ export const GuildSideBar = ({ selectedGuild, setSelectedGuild, children }: { se
 
   useEffect(() => {
     if (!userGuilds || userGuilds.length == 0)
-      getUserGuilds()
-        .then(res =>
-          getArchivedGuilds(res.filter(item => canUserManageBots(item.permissions.toString())).map(x => x.id))
-            .then(returnValue => 
-              setUserGuilds(res.filter(x => returnValue.includes(x['id'])))
-            )
-        )
+      getArchivedGuilds().then(res => {
+        console.log('response', res)
+        setUserGuilds(res)
+      })
+
+      // getUserGuilds()
+      //   .then(res =>
+      //     setUserGuilds(res)
+          // getArchivedGuilds(res.filter(item => canUserManageBots(item.permissions.toString())).map(x => x.id))
+            // .then(returnValue => 
+              // setUserGuilds(res.filter(x => returnValue.includes(x['id'])))
+            // )
+        // )
   }, [])
 
   useEffect(() => {
