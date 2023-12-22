@@ -54,7 +54,7 @@ app.get('/guilds', (req, res) => {
 	};
 	res.set('Content-Type', 'application/json');
 	res.set('Access-Control-Allow-Origin', '*');
-	res.status(501).send(dummyData);
+	res.status(200).send(dummyData);
 });
 
 app.get('/guilds/:guildId/channels', (req, res) => {
@@ -69,7 +69,7 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 		},
 	};
 	res.set('Content-Type', 'application/json');
-	res.status(501).send(dummyData);
+	res.status(200).send(dummyData);
 });
 
 app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
@@ -94,7 +94,7 @@ app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
 		}
 	};
 	res.set('Content-Type', 'application/json');
-	res.status(501).send(dummyData);
+	res.status(200).send(dummyData);
 });
 
 app.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
