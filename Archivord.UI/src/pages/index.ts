@@ -1,6 +1,5 @@
 export * from './Archive'
 export * from './Authorize'
 export * from './Authorized'
-export * from './ChannelArchive'
-export * from './GuildArchive'
 export * from './Home'
+export * from './LogOut'

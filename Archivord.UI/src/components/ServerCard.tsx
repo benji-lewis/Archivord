@@ -1,38 +1,38 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { Guild } from "../interfaces/Guild";
-import { Avatar, CardActionArea, ListItem, ListItemAvatar, ListItemText, styled } from "@mui/material"
-import { canUserManageBots } from "../helpers/permissionsHelper";
+import { ListItemAvatar, ListItemButton, ListItemText, styled } from "@mui/material"
 import { GuildAvatar } from "./GuildAvatar";
 
-const Card = styled('div', {})(({ theme }) => ({
-  marginTop: theme.spacing(1),
-  marginBottom: theme.spacing(1),
-  backgroundColor: theme.palette.grey[800],
-  borderRadius: theme.shape.borderRadius,
-  boxShadow: theme.shadows[2],
-}));
+interface ServerCardProps {
+  id: string;
+  name: string;
+  icon: string;
+  isSelected: boolean;
+  selectFunction: Function;
+}
 
-export const ServerCard = ({ server }: { server: Guild }) => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { id, name, icon, permissions } = server
+const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
+  '&.Mui-selected': {
+    backgroundColor: theme.palette.secondary.light,
+    color: theme.palette.common.white,
+  },
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.dark + '!important',
+    color: theme.palette.common.white + '!important',
+  }
+}))
 
-  if (!canUserManageBots(permissions.toString())) return
-
+export const ServerCard = ({ id, name, icon, isSelected = false, selectFunction }: ServerCardProps) => {
   var iconUrl = `https://cdn.discordapp.com/icons/${id}/`
 
+  const navigateToGuild = () => {
+    selectFunction(id)
+  }
+
   return (
-    <Card>
-      <CardActionArea onClick={() => navigate(`/archive/${id}`, { state: { ...location.state, guildId: id, guildName: name } })}>
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <GuildAvatar iconId={icon} url={iconUrl} name={name} />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={name} />
-        </ListItem>
-      </CardActionArea>
-    </Card>
+    <ListItemButtonStyled selected={isSelected} onClick={navigateToGuild}>
+      <ListItemAvatar>
+        <GuildAvatar iconId={icon} url={iconUrl} name={name} />
+      </ListItemAvatar>
+      <ListItemText primary={name} />
+    </ListItemButtonStyled>
   )
 }
