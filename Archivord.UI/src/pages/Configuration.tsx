@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { GuildSideBar } from "../components/GuildSideBar"
-import { Box, CssBaseline, Drawer, List, ListItem, Paper, Table, TableCell, TableContainer, TableHead, TableRow, Tooltip, styled } from "@mui/material"
+import { Box, Switch, Typography, styled } from "@mui/material"
 import * as guildsService from '../services/guilds.service'
 import { Channel } from "../interfaces/Channel"
-import InfoIcon from '@mui/icons-material/Info';
 import { ChannelTable } from "../components/config/ChannelTable"
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
+import { Guild } from "../interfaces/Guild"
 
 const StyledBox = styled(Box)(({ theme }) => ({
   alignItems: 'center ',
@@ -14,14 +15,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
   paddingLeft: theme.spacing(5),
   paddingRight: theme.spacing(5),
   paddingTop: theme.spacing(5)
-}))
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  color: theme.palette.primary.light + '!important',
-  backgroundColor: theme.palette.primary.main
-}))
-
-const StyledCell = styled(TableCell)(({ theme }) => ({
-  color: theme.palette.primary.light
 }))
 
 const channelsData = [
@@ -51,17 +44,40 @@ const channelsData = [
 export const Configuration = ({ }) => {
   const [selectedGuild, setSelectedGuild] = useState<string>()
   const [channels, setChannels] = useState<Channel>()
+  const [userGuilds, setUserGuilds] = useState<Guild>([])
 
   useEffect(() => {
     if (selectedGuild)
       guildsService.getGuildChannels(selectedGuild).then(res => setChannels(res))
   }, [selectedGuild])
 
+
+  useEffect(() => {
+    guildsService.getArchivedGuilds().then(res => {
+      setUserGuilds(res)
+    })
+  }, [])
+
+  useEffect(() => {
+    if (userGuilds) setSelectedGuild(Object.keys(userGuilds)[0])
+  }, [userGuilds])
+
   return (
-    <GuildSideBar selectedGuild={selectedGuild} setSelectedGuild={setSelectedGuild}>
+    <GuildSideBar userGuilds={userGuilds} selectedGuild={selectedGuild} setSelectedGuild={setSelectedGuild}>
       <StyledBox
       >
-        <ChannelTable channels={channelsData} />
+        <Grid2 container spacing={2}>
+          <Grid2 xs={8}>
+            <Typography>Currently Archived</Typography>
+          </Grid2>
+          <Grid2 xs={4}>
+            <Switch />
+          </Grid2>
+          <Grid2 xs={12}>
+            <ChannelTable channels={channelsData} />
+          </Grid2>
+        </Grid2>
+
       </StyledBox>
     </GuildSideBar>
   )

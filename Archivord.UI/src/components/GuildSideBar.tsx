@@ -14,19 +14,14 @@ const Drawer = styled('div', {})(({ theme }) => ({
 
 }));
 
-export const GuildSideBar = ({ selectedGuild, setSelectedGuild, children }: { selectedGuild: string | undefined, setSelectedGuild: Function, children: any }) => {
-  const [userGuilds, setUserGuilds] = useState<Guild>([])
+interface GuildSideBar {
+  userGuilds: Guild;
+  selectedGuild: string | undefined;
+  setSelectedGuild: Function;
+  children: any;
+}
 
-  useEffect(() => {
-    getArchivedGuilds().then(res => {
-      setUserGuilds(res)
-    })
-  }, [])
-
-  useEffect(() => {
-    if (userGuilds) setSelectedGuild(Object.keys(userGuilds)[0])
-  }, [userGuilds])
-
+export const GuildSideBar = ({ userGuilds, selectedGuild, setSelectedGuild, children }: GuildSideBar ) => {
   const selectGuild = (id: number) => {
     setSelectedGuild(id)
   }
