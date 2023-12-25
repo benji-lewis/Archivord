@@ -98,3 +98,5 @@ dist/
 # Auth Files
 serviceAccount.json
 Archivord.UI/config/config.ts
+
+.firebase/

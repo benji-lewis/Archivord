@@ -4,10 +4,11 @@ import { resolve } from 'path';
 import { config } from 'dotenv';
 
 config({
-		path: resolve(__dirname, '../../.env')
+	path: resolve(__dirname, '../../.env')
 });
 
-var serviceAccount = require("../../serviceAccount.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const serviceAccount = require('../../serviceAccount.json');
 
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount)
@@ -18,4 +19,4 @@ const db = new Firestore({
 	keyFilename: resolve(__dirname, '../../serviceAccount.json')
 });
 
-export { admin, db, Timestamp, FieldValue }
+export { admin, db, Timestamp, FieldValue };

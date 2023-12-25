@@ -1,4 +1,5 @@
-import { Timestamp } from "firebase-admin/firestore";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Timestamp } from 'firebase-admin/firestore';
 
 export namespace archivord {
 	interface Guilds {
