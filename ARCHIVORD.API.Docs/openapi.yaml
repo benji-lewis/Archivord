@@ -3,29 +3,40 @@ info:
   title: Archivord API
   version: draft1.0.1
   description: "A *currently* private version of the Archivord API. Eventually this may be released to power users but for now is only for use between the Archivord WebUI and the Archivord Firebase."
+  license: 
+    name: Copyright (C) 2023 Ben Lewis
+    url: https://github.com/benjisoft/Archivord/blob/main/LICENSE.md
+  contact: 
+    url: https://github.com/benjisoft/Archivord/issues  
 security: 
   - oauth: []
 paths: 
   /guilds:
     get: 
+      operationId: "getGuilds"
       summary: Get Guilds
       description: Returns a list of guilds the specified user can access that are archived
+      tags: 
+        - messages
       responses: 
-        200: 
+        "200": 
           description: Success
           content: 
             application/json: 
               schema: 
                 $ref: "#/components/schemas/Guilds"
-        401:
+        "401":
           description: Discord Token Invalid
           content:
             text:
               example: "Invalid Discord token"
   /guilds/{guildId}/channels: 
     get:
+      operationId: "getChannels"
       summary: Get Channels
       description: Returns a list of channels the specified user can access
+      tags: 
+        - messages
       parameters: 
         - in: path
           name: guildId
@@ -33,21 +44,24 @@ paths:
             type: string
           required: true
       responses: 
-        200: 
+        "200": 
           description: Success
           content: 
             application/json: 
               schema: 
                 $ref: "#/components/schemas/Channels"
-        401:
+        "401":
           description: Discord Token Invalid
           content:
             text:
               example: "Invalid Discord token"
   /guilds/{guildId}/channels/{channelId}/messages: 
     get: 
+      operationId: "getMessages"
       summary: Get archived messages
       description: Returns a list of messages from the channel
+      tags: 
+        - messages
       parameters: 
         - in: path
           name: channelId
@@ -73,13 +87,13 @@ paths:
             maximum: 100
             description: ID of the channel to query
       responses: 
-        200: 
+        "200": 
           description: Success
           content: 
             application/json: 
               schema: 
                 $ref: '#/components/schemas/Messages'
-        401:
+        "401":
           description: Discord Token Invalid
           content:
             text:
@@ -149,3 +163,10 @@ components:
         authorNick:
           type: string
           nullable: true
+tags:
+  - name: messages
+    description: Operations open to any authenticated Discord user to retreive messages archived within servers they are a member of
+  - name: public
+    description: Operations that retrieve publicly accesible data
+  - name: config
+    description: Operations restricted to server admins related to the configuration of Archivord within a server
