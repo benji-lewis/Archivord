@@ -80,12 +80,12 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 
 app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
 	let messageRef;
-	if (req.query.before && req.query.limit) {
-		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').startAt(req.query.before as string).limit(parseInt(req.query.limit as string));
-	} else if (req.query.before && !req.query.limit) {
+	if (req.query.before && req.query.limitTo) {
+		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').startAt(req.query.before as string).limit(parseInt(req.query.limitTo as string));
+	} else if (req.query.before && !req.query.limitTo) {
 		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').startAt(req.query.before as string);
-	} else if (!req.query.before && req.query.limit) {
-		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').limit(parseInt(req.query.limit as string));
+	} else if (!req.query.before && req.query.limitTo) {
+		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').limit(parseInt(req.query.limitTo as string));
 	} else {
 		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc');
 	}
