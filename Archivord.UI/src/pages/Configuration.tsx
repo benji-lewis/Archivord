@@ -64,6 +64,25 @@ export const Configuration = ({ }) => {
     if (userGuilds) setSelectedGuild(Object.keys(userGuilds)[0])
   }, [userGuilds])
 
+  const saveChannel = (channel: Channel) => {
+    // TODO: Hook up with API and update that in db
+    setChannels(prevChannels => {
+      const channelIndex = prevChannels.findIndex(x => x.id === channel.id)
+      
+      console.log('channelIndex', channelIndex)
+      console.log('channel', channel)
+
+      if (channelIndex !== -1) {
+        const newChannels = prevChannels
+        newChannels[channelIndex] = channel
+        return newChannels
+      }
+  
+      return prevChannels
+    })
+    setSelectedChannel(null)
+  }
+
   return (
     <>
       <GuildSideBar userGuilds={userGuilds} selectedGuild={selectedGuild} setSelectedGuild={setSelectedGuild}>
@@ -83,7 +102,7 @@ export const Configuration = ({ }) => {
         </StyledBox>
       </GuildSideBar>
       {selectedChannel !== null &&
-        <EditChannelModal channel={selectedChannel} saveFunction={() => setSelectedChannel(null)} cancelFunction={() => setSelectedChannel(null)} />
+        <EditChannelModal channel={selectedChannel} saveFunction={saveChannel} cancelFunction={() => setSelectedChannel(null)} />
       }
     </>
   )

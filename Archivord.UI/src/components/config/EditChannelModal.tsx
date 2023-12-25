@@ -12,9 +12,9 @@ const FlexTypo = styled(Typography)(({ theme }) => ({
 export const EditChannelModal = ({ channel, saveFunction, cancelFunction }: { channel: Channel, saveFunction: Function, cancelFunction: Function }) => {
   const [channelData, setChannelData] = useState<Channel>(channel)
 
-  const modalTitle = channel.category ? `${channel.category}: ${channel.name}` : channel.name
+  const modalTitle = channelData.category ? `${channelData.category}: ${channelData.name}` : channelData.name
 
-  return <SimpleModal title={modalTitle} isOpen={true} saveFunction={saveFunction} cancelFunction={cancelFunction}>
+  return <SimpleModal title={modalTitle} isOpen={true} saveFunction={() => saveFunction(channelData)} cancelFunction={cancelFunction}>
     <Grid2 container spacing={2}>
       <Grid2 xs={8}>
         <Typography>Currently Archived?</Typography>
