@@ -1,11 +1,11 @@
 {
   "firestore": {
-    "rules": "ARCHIVORD.Firebase/config/firestore.rules",
-    "indexes": "ARCHIVORD.Firebase/config/firestore.indexes.json"
+    "rules": "Archivord.Firebase/config/firestore.rules",
+    "indexes": "Archivord.Firebase/config/firestore.indexes.json"
   },
   "functions": [
     {
-      "source": "ARCHIVORD.API/",
+      "source": "Archivord.API/",
       "codebase": "default",
       "ignore": [
         "node_modules",
@@ -14,13 +14,13 @@
         "firebase-debug.*.log"
       ],
       "predeploy": [
-        "npm --prefix ARCHIVORD.API/ run lint",
-        "npm --prefix ARCHIVORD.API/ run build"
+        "npm --prefix Archivord.API/ run lint",
+        "npm --prefix Archivord.API/ run build"
       ]
     }
   ],
   "hosting": {
-    "public": "ARCHIVORD.Portal",
+    "public": "Archivord.UI",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -28,7 +28,7 @@
     ]
   },
   "storage": {
-    "rules": "ARCHIVORD.Firebase/config/storage.rules"
+    "rules": "Archivord.Firebase/config/storage.rules"
   },
   "emulators": {
     "auth": {
