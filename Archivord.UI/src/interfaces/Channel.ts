@@ -1,4 +1,8 @@
+export interface ChannelData {
+  name: string;
+  topic: string | null;
+}
+
 export interface Channel {
-  Id: string,
-  Name: string
+  [key: number]: ChannelData;
 }
