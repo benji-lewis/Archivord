@@ -79,7 +79,16 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 });
 
 app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
-	const messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages');
+	let messageRef;
+	if (req.query.before && req.query.limit) {
+		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').startAt(req.query.before as string).limit(parseInt(req.query.limit as string));
+	} else if (req.query.before && !req.query.limit) {
+		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').startAt(req.query.before as string);
+	} else if (!req.query.before && req.query.limit) {
+		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').limit(parseInt(req.query.limit as string));
+	} else {
+		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc');
+	}
 	const messageData: archivord.Messages = {};
 	messageRef.get().then((snapshot) => {
 		snapshot.forEach((doc) => {
@@ -95,6 +104,7 @@ app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
 		res.set('Content-Type', 'application/json');
 		res.status(200).send(messageData);
 	});
+
 });
 //#endregion
 
