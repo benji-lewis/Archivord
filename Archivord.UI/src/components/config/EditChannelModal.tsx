@@ -5,7 +5,7 @@ import { Switch, Tooltip, Typography, styled } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
 import { useState } from "react";
 
-const FlexTypo = styled(Typography)(({ theme }) => ({
+const FlexTypo = styled(Typography)(({}) => ({
   display: 'flex',
 }))
 

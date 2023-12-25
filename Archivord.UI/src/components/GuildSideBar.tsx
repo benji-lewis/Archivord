@@ -35,7 +35,7 @@ export const GuildSideBar = ({ userGuilds, selectedGuild, setSelectedGuild, chil
           <List>
             {Object.entries(userGuilds).map(([key, value] : [string, GuildData]) => (
               <ListItem key={key} disablePadding>
-                <ServerCard id={key} name={value.name} icon={value.icon} isSelected={key == selectedGuild} selectFunction={selectGuild} />
+                <ServerCard id={key} name={value.guildName} icon={value.icon} isSelected={key == selectedGuild} selectFunction={selectGuild} />
               </ListItem>
             ))}
           </List>

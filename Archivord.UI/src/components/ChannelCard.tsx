@@ -25,12 +25,14 @@ export const ChannelCard = ({ id, name, category, isSelected = false, selectFunc
     selectFunction(id)
   }
 
+  const getName = category ? `${category}: ${name}` : name
+
   return (
     <ListItemButtonStyled selected={isSelected} onClick={navigateToGuild}>
       <ListItemIcon>
         <TagRoundedIcon htmlColor="#949BA4" />
       </ListItemIcon>
-      <ListItemText primary={name} />
+      <ListItemText primary={getName} />
     </ListItemButtonStyled>
   )
 }

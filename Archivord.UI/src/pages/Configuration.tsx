@@ -69,9 +69,6 @@ export const Configuration = ({ }) => {
     setChannels(prevChannels => {
       const channelIndex = prevChannels.findIndex(x => x.id === channel.id)
       
-      console.log('channelIndex', channelIndex)
-      console.log('channel', channel)
-
       if (channelIndex !== -1) {
         const newChannels = prevChannels
         newChannels[channelIndex] = channel
