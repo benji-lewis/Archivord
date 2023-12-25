@@ -39,7 +39,6 @@ export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: string | unde
   }
 
   return (
-    <>
       <Box
         sx={{ 
           display: 'flex',
@@ -59,6 +58,5 @@ export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: string | unde
         </Drawer>
         <Messages messages={messages} />
       </Box>
-    </>
-  );
+  )
 }

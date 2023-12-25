@@ -1,8 +1,7 @@
 import { Box, CssBaseline, List, ListItem, styled } from '@mui/material'
 import { ServerCard } from './ServerCard';
-import { useEffect, useState } from 'react';
-import { getArchivedGuilds } from '../services/guilds.service';
 import { GuildData, Guild } from '../interfaces/Guild';
+import { ReactElement } from 'react';
 
 const drawerWidth = 240
 
@@ -18,7 +17,7 @@ interface GuildSideBar {
   userGuilds: Guild;
   selectedGuild: string | undefined;
   setSelectedGuild: Function;
-  children: any;
+  children: ReactElement;
 }
 
 export const GuildSideBar = ({ userGuilds, selectedGuild, setSelectedGuild, children }: GuildSideBar ) => {
@@ -27,7 +26,6 @@ export const GuildSideBar = ({ userGuilds, selectedGuild, setSelectedGuild, chil
   }
 
   return (
-    <>
       <Box
         sx={{ display: 'flex', backgroundColor: '#313338' }}
       >
@@ -44,6 +42,5 @@ export const GuildSideBar = ({ userGuilds, selectedGuild, setSelectedGuild, chil
         </Drawer>
         {children}
       </Box>
-    </>
-  );
+  )
 }

@@ -11,11 +11,11 @@ interface ServerCardProps {
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   '&.Mui-selected': {
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.backgroundColours.light,
     color: theme.palette.common.white,
   },
   '&:hover': {
-    backgroundColor: theme.palette.secondary.dark + '!important',
+    backgroundColor: theme.backgroundColours.main + '!important',
     color: theme.palette.common.white + '!important',
   }
 }))

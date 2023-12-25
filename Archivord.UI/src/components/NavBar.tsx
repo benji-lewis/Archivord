@@ -1,11 +1,22 @@
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, Toolbar, Typography, MenuItem } from "@mui/material"
+import {
+  AppBar,
+  Avatar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  Toolbar,
+  Typography,
+  MenuItem,
+} from "@mui/material"
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getUiColour } from "../helpers/colourHelper";
 import { getAcronym } from "../helpers/stringHelper";
 
-export const NavBar = ({}) => {
+export const NavBar = ({ }) => {
   const pages = [
     {
       title: "Home",
@@ -46,15 +57,15 @@ export const NavBar = ({}) => {
   }
 
   const getAccountImage = () => {
-    if (!location.state?.id) 
+    if (!location.state?.id)
       return <AccountCircleIcon />
 
-    if (!location.state?.avatar) 
+    if (!location.state?.avatar)
       return <Avatar sx={{ bgcolor: getUiColour() }}>{getAcronym(location.state?.global_name || location.state?.username)}</Avatar>
-    
-    return location.state.avatar.startsWith('a_') 
-    ? <Avatar alt={location.state?.username} src={`https://cdn.discordapp.com/avatars/${location.state.id}/${location.state.avatar}.gif`} />
-    : <Avatar alt={location.state?.username} src={`https://cdn.discordapp.com/avatars/${location.state.id}/${location.state.avatar}.png`} />
+
+    return location.state.avatar.startsWith('a_')
+      ? <Avatar alt={location.state?.username} src={`https://cdn.discordapp.com/avatars/${location.state.id}/${location.state.avatar}.gif`} />
+      : <Avatar alt={location.state?.username} src={`https://cdn.discordapp.com/avatars/${location.state.id}/${location.state.avatar}.png`} />
   }
 
   return (
@@ -78,7 +89,7 @@ export const NavBar = ({}) => {
             {pages.filter(x => !x?.hidden).map((page) => (
               <Button
                 key={page.title}
-                onClick={() => {navigate(page.route)}}
+                onClick={() => { navigate(page.route) }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.title}
@@ -87,9 +98,9 @@ export const NavBar = ({}) => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {getAccountImage()}
-              </IconButton>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              {getAccountImage()}
+            </IconButton>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -106,7 +117,7 @@ export const NavBar = ({}) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {!location.state?.id 
+              {!location.state?.id
                 ? <MenuItem key={'logout'} onClick={handleLoginPress}><Typography textAlign="center" >Login</Typography></MenuItem>
                 : <MenuItem key={'logout'} onClick={handleLogoutPress}><Typography textAlign="center" >Logout</Typography></MenuItem>
               }

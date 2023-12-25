@@ -1,4 +1,15 @@
-import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, styled } from "@mui/material"
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  styled
+} from "@mui/material"
 import InfoIcon from '@mui/icons-material/Info';
 import { Channel } from "../../interfaces/admin/Channel";
 
@@ -18,14 +29,10 @@ const FlexCell = styled(TableCell)(({ theme }) => ({
 }))
 
 const StyledRow = styled(TableRow)(({ theme }) => ({
-  borderBottom: '2px solid ' + theme.palette.secondary.light,
+  borderBottom: '2px solid ' + theme.backgroundColours.lighter,
 }))
 
-const StyledButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.contrast.blue
-}))
-
-export const ChannelTable = ({ channels }: { channels: Array<Channel> }) => {
+export const ChannelTable = ({ channels, setSelectedChannel }: { channels: Array<Channel>, setSelectedChannel: Function }) => {
   const getTableData = () => {
     return channels.map((channel: Channel) => (
       <StyledRow>
@@ -33,7 +40,11 @@ export const ChannelTable = ({ channels }: { channels: Array<Channel> }) => {
         <StyledCell>{channel.category}</ StyledCell>
         <StyledCell>{channel.archived ? 'Yes' : 'No'}</ StyledCell>
         <StyledCell>{channel.public ? 'Yes' : 'No'}</ StyledCell>
-        <StyledCell align="right"><StyledButton variant="contained">Edit</StyledButton></StyledCell>
+        <StyledCell align="right">
+          <Button variant="contained" color="secondary" onClick={() => setSelectedChannel(channel)}>
+            Edit
+          </Button>
+        </StyledCell>
       </StyledRow>
     ))
   }
