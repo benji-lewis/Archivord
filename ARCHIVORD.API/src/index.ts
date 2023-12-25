@@ -1,21 +1,28 @@
+//#region Imports
 import { onRequest } from 'firebase-functions/v2/https';
 // Available log levels: log, info, debug, warn, error
 // import { debug } from 'firebase-functions/logger';
+// import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
+import { initializeApp } from 'firebase-admin/app';
+// import { getFirestore, Timestamp, FieldValue, Filter } from 'firebase-admin/firestore';
+import { getFirestore } from 'firebase-admin/firestore';
+
 import readme = require('readmeio');
 import express = require('express');
 import cors = require('cors');
+
 import { checkDiscordToken } from './helpers/auth';
 import { archivord } from './index.d';
+//#endregion
+//#region App Setup
 const app = express();
 
 const readmeApiKey = process.env.README_API_KEY as string;
-const readmeSecret = process.env.README_SECRET as string;
 
-app.use(cors({ origin: [
-	'http://localhost:5173',
-	'https://archivord.web.app',
-	'https://archivord.benjilewis.dev',
-] }));
+initializeApp();
+const db = getFirestore();
+
+app.use(cors({ origin: ['http://localhost:5173', 'https://archivord.web.app', 'https://archivord.benjilewis.dev',] }));
 app.use(checkDiscordToken);
 app.use((req: archivord.ReqUserInfo, res, next) => {
 	const authHeader = req.headers.authorization;
@@ -35,83 +42,60 @@ app.use((req: archivord.ReqUserInfo, res, next) => {
 	});
 	return next();
 });
+//#endregion
 
-app.get('/guilds', (req, res) => {
-	const dummyData = {
-		'624200301770965043': {
-			'name': 'Archivord Test Server',
-			'icon': '705c4bb3a9b72518086856ea58eb283f',
+//#region /guilds
+app.get('/guilds', async (req, res) => {
+	//TODO: Implement checking of priveleges
+	const guildResponse: archivord.Guilds = {};
+	const guildColl = db.collection('guilds');
+	const guilds = await guildColl.get();
+	await guilds.forEach((guild) => {
+		const guildData = guild.data();
+		guildResponse[guild.id] = {
+			'guildName': guildData.name,
+			'icon': guildData.icon,
+		};
+	});
 
-		}, '624200301770965044': {
-			'name': 'Archivord Test Server 2',
-			'icon': '705c4bb3a9b72518086856ea58eb283f',
-
-		}, '624200301770965045': {
-			'name': 'Archivord Test Server 3',
-			'icon': '705c4bb3a9b72518086856ea58eb283f',
-
-		}
-	};
 	res.set('Content-Type', 'application/json');
-	res.set('Access-Control-Allow-Origin', '*');
-	res.status(200).send(dummyData);
+	res.status(200).send(guildResponse);
 });
 
 app.get('/guilds/:guildId/channels', (req, res) => {
-	const dummyData = {
-		'624200301770965043': {
-			'name': 'general',
-			'topic': 'general chat',
-		},
-		'624200301770965044': {
-			'name': 'second test',
-			'topic': 'second test chat',
-		},
-	};
-	res.set('Content-Type', 'application/json');
-	res.status(200).send(dummyData);
+	const chanRef = db.collection('guilds').doc(req.params.guildId).collection('channels');
+	const chanData: archivord.Channels = {};
+	chanRef.get().then((snapshot) => {
+		snapshot.forEach((doc) => {
+			const data = doc.data();
+			chanData[doc.id] = {
+				'channelName': data.name,
+				'topic': data.topic,
+			};
+		});
+		res.set('Content-Type', 'application/json');
+		res.status(200).send(chanData);
+	});
 });
 
 app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
-	const dummyData = {
-		'additionalProp1': {
-			'content': 'string',
-			'authorId': 'string',
-			'authorUsername': 'string',
-			'authorNick': 'string'
-		},
-		'additionalProp2': {
-			'content': 'string',
-			'authorId': 'string',
-			'authorUsername': 'string',
-			'authorNick': 'string'
-		},
-		'additionalProp3': {
-			'content': 'string',
-			'authorId': 'string',
-			'authorUsername': 'string',
-			'authorNick': 'string'
-		}
-	};
-	res.set('Content-Type', 'application/json');
-	res.status(200).send(dummyData);
-});
-
-app.post('/webhook', express.json({ type: 'application/json' }), async (req, res) => {
-	// Verify the request is legitimate and came from ReadMe.
-	const signature = req.headers['readme-signature'] as string;
-	try {
-		readme.verifyWebhook(req.body, signature, readmeSecret);
-	} catch (e: any) {
-		// Handle invalid requests
-		return res.status(401).json({ error: e.message });
-	}
-	// Fetch the user from the database and return their data for use with OpenAPI variables.
-	// const user = await db.find({ email: req.body.email })
-	return res.json({
-		// OAS Security variables
-		oauth: 'oauth',
+	const messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages');
+	const messageData: archivord.Messages = {};
+	messageRef.get().then((snapshot) => {
+		snapshot.forEach((doc) => {
+			const data = doc.data();
+			messageData[doc.id] = {
+				'content': data.content,
+				'authorId': data.authorId,
+				'authorUsername': data.authorUsername,
+				'authorNick': data.authorNick,
+				'timestamp': data.timestamp
+			};
+		});
+		res.set('Content-Type', 'application/json');
+		res.status(200).send(messageData);
 	});
 });
+//#endregion
 
 exports.widget = onRequest({ region: 'europe-west1' }, app);
