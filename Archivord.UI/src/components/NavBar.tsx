@@ -86,10 +86,10 @@ export const NavBar = ({ }) => {
             Archivord
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.filter(x => !x?.hidden).map((page) => (
+            {pages.map((page) => (
               <Button
                 key={page.title}
-                onClick={() => { navigate(page.route) }}
+                onClick={() => { navigate(page.route, { state: { ...location.state } }) }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page.title}
