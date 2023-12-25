@@ -18,7 +18,6 @@ export const NavBar = ({}) => {
     {
       title: "Configuration",
       route: "/config",
-      hidden: true
     }
   ]
 

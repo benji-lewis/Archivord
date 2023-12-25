@@ -4,7 +4,23 @@ import App from './App.tsx'
 import './index.css'
 import { ThemeProvider, createTheme } from '@mui/material';
 
+declare module '@mui/material/styles' {
+  interface Theme {
+    contrast: { 
+      blue: string;
+      fuchia: string;
+    };
+  }
+  interface ThemeOptions {
+    contrast: { };
+  }
+}
+
 const theme = createTheme({
+  contrast: {
+    blue: '#5865F2',
+    fuchia: '#EB459E'
+  },
   palette: {
     primary: {
       main: '#2b2d31',

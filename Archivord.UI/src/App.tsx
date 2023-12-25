@@ -25,6 +25,7 @@ function App() {
         <Route path='authorized' element={<Pages.Authorized />} />
         <Route path='archive' element={<ProtectedRoute element={<Pages.Archive />} />} />
         <Route path='logout' element={<ProtectedRoute element={<Pages.LogOut />} />} />
+        <Route path='config' element={<ProtectedRoute element={<Pages.Configuration />} />} />
       </Routes>
       </BrowserRouter>
     </>
