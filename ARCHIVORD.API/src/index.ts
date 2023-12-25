@@ -79,6 +79,10 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 });
 
 app.get('/guilds/:guildId/channels/:channelId/messages', (req, res) => {
+	if (!req.query.limitTo || parseInt(req.query.limitTo as string) > 100) {
+		res.status(406).send('Please refrain from requesting more than 100 messages at a time.');
+		return;
+	}
 	let messageRef;
 	if (req.query.before && req.query.limitTo) {
 		messageRef = db.collection('guilds').doc(req.params.guildId).collection('channels').doc(req.params.channelId).collection('messages').orderBy('timestamp', 'desc').startAt(req.query.before as string).limit(parseInt(req.query.limitTo as string));
