@@ -140,7 +140,7 @@ components:
     Channel:
       type: object
       properties:
-        channelName:
+        name:
           type: string
         roles:
           type: array
