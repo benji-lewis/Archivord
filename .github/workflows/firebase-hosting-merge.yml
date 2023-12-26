@@ -13,6 +13,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+      - name: Install and build Archivord.API
         run: |
           cd ../Archivord.API
           npm ci
@@ -35,4 +36,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARCHIVORD_1F2BC }}'
           channelId: live
           projectId: archivord-1f2bc
-      - name: Install and build Archivord.API
