@@ -1,5 +1,5 @@
 import { db } from '../utils/firebaseCreds';
-import { archivord } from '../index.d';
+import { archivord } from '..';
 import { Timestamp, FieldValue, Filter, DocumentData, QuerySnapshot } from 'firebase-admin/firestore';
 import { defaultMaxListeners } from 'events';
 
