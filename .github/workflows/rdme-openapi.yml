@@ -20,4 +20,4 @@ jobs:
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi ARCHIVORD.API.Docs/openapi.yaml --key=${{ secrets.README_API_KEY }} --id=6583024c5f9133003185299a
+          rdme: openapi Archivord.API.Docs/openapi.yaml --key=${{ secrets.README_API_KEY }} --id=6583024c5f9133003185299a

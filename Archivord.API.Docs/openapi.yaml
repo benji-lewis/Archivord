@@ -1,0 +1,177 @@
+openapi: 3.0.0
+info:
+  title: Archivord API
+  version: draft1.0.1
+  description: "A *currently* private version of the Archivord API. Eventually this may be released to power users but for now is only for use between the Archivord WebUI and the Archivord Firebase."
+  license: 
+    name: Copyright (C) 2023 Ben Lewis
+    url: https://github.com/benjisoft/Archivord/blob/main/LICENSE.md
+  contact: 
+    url: https://github.com/benjisoft/Archivord/issues  
+security: 
+  - oauth: []
+paths: 
+  /guilds:
+    get: 
+      operationId: "getGuilds"
+      summary: Get Guilds
+      description: Returns a list of guilds the specified user can access that are archived
+      tags: 
+        - messages
+      responses: 
+        "200": 
+          description: Success
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Guilds"
+        "401":
+          description: Discord Token Invalid
+          content:
+            text:
+              example: "Invalid Discord token"
+  /guilds/{guildId}/channels: 
+    get:
+      operationId: "getChannels"
+      summary: Get Channels
+      description: Returns a list of channels the specified user can access
+      tags: 
+        - messages
+      parameters: 
+        - in: path
+          name: guildId
+          schema: 
+            type: string
+          required: true
+      responses: 
+        "200": 
+          description: Success
+          content: 
+            application/json: 
+              schema: 
+                $ref: "#/components/schemas/Channels"
+        "401":
+          description: Discord Token Invalid
+          content:
+            text:
+              example: "Invalid Discord token"
+  /guilds/{guildId}/channels/{channelId}/messages: 
+    get: 
+      operationId: "getMessages"
+      summary: Get archived messages
+      description: Returns a list of messages from the channel
+      tags: 
+        - messages
+      parameters: 
+        - in: path
+          name: channelId
+          schema: 
+            type: string
+          required: true
+        - in: path
+          name: guildId
+          schema: 
+            type: string
+          required: true
+        - in: query
+          name: before
+          description: Specifies where to start retrieving data. Data is always retrieved in reverse chronological order, listing data from newest to oldest
+          schema: 
+            type: string
+        - in: query
+          name: limitTo
+          description: How many records to return
+          schema: 
+            type: integer
+            minimum: 1
+            maximum: 100
+            description: ID of the channel to query
+      responses: 
+        "200": 
+          description: Success
+          content: 
+            application/json: 
+              schema: 
+                $ref: '#/components/schemas/Messages'
+        "401":
+          description: Discord Token Invalid
+          content:
+            text:
+              example: "Invalid Discord token"
+        "406":
+          description: LimitTo value invalid. Please ensure that you request less than 100 records at a time. 
+          content:
+            text:
+              example: "Please refrain from requesting more than 100 messages at a time."
+      
+servers:
+  - description: Firebase Production API
+    url: https://widget-rzm2py263q-ew.a.run.app
+components:
+  securitySchemes: 
+    oauth:
+      type: oauth2
+      description: OAuth Implementation *Coming Soon*
+      flows: 
+        authorizationCode: 
+          authorizationUrl: https://discord.com/oauth2/authorize
+          tokenUrl: https://discord.com/api/oauth2/token
+          scopes: 
+            identify: "Access your username, avatar and banner"
+            email: "Access your email address"
+            guilds: "Know what servers you're in"
+  schemas:
+    Guilds:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Guild'
+    Guild:
+      type: object
+      properties:
+        guildName:
+          type: string
+        icon: 
+          type: string
+          description: Icon ID
+    Channels:
+      type: object
+      additionalProperties: 
+        $ref: '#/components/schemas/Channel'
+    Channel:
+      type: object
+      properties:
+        channelName:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        section:
+          type: string
+        messages:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Message'
+    Messages:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/Message'
+    Message:
+      type: object
+      properties:
+        content:
+          type: string
+        authorId:
+          type: string
+        authorUsername:
+          type: string
+        authorNick:
+          type: string
+          nullable: true
+tags:
+  - name: messages
+    description: Operations open to any authenticated Discord user to retreive messages archived within servers they are a member of
+  - name: public
+    description: Operations that retrieve publicly accesible data
+  - name: config
+    description: Operations restricted to server admins related to the configuration of Archivord within a server
