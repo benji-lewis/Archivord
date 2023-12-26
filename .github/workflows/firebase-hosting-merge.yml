@@ -13,6 +13,16 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+        run: |
+          cd ../Archivord.API
+          npm ci
+          npm run build
+      - name: Deploy to Firebase Functions
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+          projectId: archivord-1f2bc
+          serviceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARCHIVORD_1F2BC }}'
       - name: Install and build Archivord.UI
         run: |
           cd Archivord.UI
@@ -26,13 +36,3 @@ jobs:
           channelId: live
           projectId: archivord-1f2bc
       - name: Install and build Archivord.API
-        run: |
-          cd ../Archivord.API
-          npm ci
-          npm run build
-      - name: Deploy to Firebase Functions
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only functions
-          projectId: archivord-1f2bc
-          serviceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARCHIVORD_1F2BC }}'
