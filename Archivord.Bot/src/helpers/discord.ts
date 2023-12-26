@@ -1,6 +1,6 @@
 
 import { Guild, TextChannel, ChannelType, Client } from 'discord.js';
-import { archivord } from '../index.d';
+import { archivord } from '..';
 
 /** 
  * Get all servers a user and the bot is in. 

@@ -1,7 +1,7 @@
 //#region Imports
 import { Client, ClientOptions, Events, Interaction, TextChannel } from 'discord.js';
 import { resolve } from 'path';
-import { archivord } from './index.d';
+import { archivord } from '.';
 import { writeChannelMetadataToFirestore, writeMessagesToFirestore } from './helpers/firebase';
 import { Timestamp } from '@google-cloud/firestore';
 //#endregion
