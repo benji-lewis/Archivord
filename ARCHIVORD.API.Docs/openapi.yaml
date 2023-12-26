@@ -98,6 +98,11 @@ paths:
           content:
             text:
               example: "Invalid Discord token"
+        "406":
+          description: LimitTo value invalid. Please ensure that you request less than 100 records at a time. 
+          content:
+            text:
+              example: "Please refrain from requesting more than 100 messages at a time."
       
 servers:
   - description: Firebase Production API
