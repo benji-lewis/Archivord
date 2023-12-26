@@ -45,7 +45,7 @@ export namespace archivord {
 	}
 
 	interface Channel {
-		channelName: string;
+		name: string;
 		topic: string;
 		roles?: string[];
 		messages?: Messages;

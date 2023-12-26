@@ -69,7 +69,7 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 		snapshot.forEach((doc) => {
 			const chanDatum = doc.data();
 			chanData[doc.id] = {
-				'channelName': chanDatum.channelName,
+				'name': chanDatum.channelName,
 				'topic': chanDatum.topic || null,
 			};
 		});
