@@ -15,7 +15,7 @@ jobs:
           node-version: 14
       - name: Install and build Archivord.API
         run: |
-          cd ../Archivord.API
+          cd Archivord.API
           npm ci
           npm run build
       - name: Deploy to Firebase Functions
@@ -26,7 +26,7 @@ jobs:
           serviceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARCHIVORD_1F2BC }}'
       - name: Install and build Archivord.UI
         run: |
-          cd Archivord.UI
+          cd ../Archivord.UI
           npm ci
           npm run build
       - name: Deploy to Firebase Hosting
