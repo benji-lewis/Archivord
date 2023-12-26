@@ -67,10 +67,10 @@ app.get('/guilds/:guildId/channels', (req, res) => {
 	const chanData: archivord.Channels = {};
 	chanRef.get().then((snapshot) => {
 		snapshot.forEach((doc) => {
-			const chanData = doc.data();
+			const chanDatum = doc.data();
 			chanData[doc.id] = {
-				'channelName': chanData.channelName,
-				'topic': chanData.topic,
+				'channelName': chanDatum.channelName,
+				'topic': chanDatum.topic || null,
 			};
 		});
 		res.set('Content-Type', 'application/json');
