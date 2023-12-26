@@ -64,7 +64,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Archivord Screen Shot][product-screenshot]](https://archivord.benjilewis.dev/)
 
 Archivord has a simple purpose. To retain as much data as possible to show future generations how we communicated. After a year of data collection, the full collection will be submitted to the Arctic World Archive. We foresee submitting this data shortly after the 1st of January 2025.`
 
@@ -205,7 +205,7 @@ Project Link: [https://github.com/benjisoft/Archivord](https://github.com/benjis
 [license-url]: https://github.com/benjisoft/Archivord/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/benji-lewis
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: Archivord.Images/screenshot.png
 [Typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [TS-url]: https://www.typescriptlang.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
