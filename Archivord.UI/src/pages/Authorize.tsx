@@ -6,7 +6,7 @@ export const Authorize = () => {
     redirect()
   }, [])
 
-  const redirect = () => window.location.href = window.config.API
+  const redirect = () => window.location.href = window.config.AUTH_URL
 
   return <Typography variant="h4">Redirecting to authorization URL<br />Click <Link onClick={redirect}>here</Link> if you are not directed automatically.</Typography>
 }
