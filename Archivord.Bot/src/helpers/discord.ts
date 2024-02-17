@@ -1,6 +1,6 @@
 
+import * as archivord from '../index.d';
 import { Guild, TextChannel, ChannelType, Client } from 'discord.js';
-import { archivord } from '..';
 
 /** 
  * Get all servers a user and the bot is in. 
@@ -45,10 +45,9 @@ async function getChannelsByServer(guild: Guild): Promise<TextChannel[]> {
 /**
  * Gets metadata for a discord channel
  * 
- * @param guild The server the channel is in
- * @param channel The channel to get the metadata for
+ * @param {TextChannel} channel The channel to get the metadata for
  * 
- * @returns archivord.Channel The channel metadata
+ * @returns {archivord.Channel} The channel metadata
  */
 async function getChannelMetadata(channel: TextChannel): Promise<archivord.Channel> {
 	// const roles = await getChannelRoles(channel);

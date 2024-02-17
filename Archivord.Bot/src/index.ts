@@ -1,8 +1,8 @@
 //#region Imports
-import { Client, ClientOptions, Events, Interaction, TextChannel } from 'discord.js';
+import { BaseChannel, ChannelType, Client, ClientOptions, Collection, Events, Guild, GuildChannel, Interaction, Snowflake, TextChannel } from 'discord.js';
 import { resolve } from 'path';
-import { archivord } from '.';
-import { writeChannelMetadataToFirestore, writeMessagesToFirestore } from './helpers/firebase';
+import * as archivord from './index.d';
+import { writeNewGuildToFirestore, writeChannelMetadataToFirestore, writeMessagesToFirestore, checkChannelArchived, writeMessageToFirestore } from './helpers/firebase';
 import { Timestamp } from '@google-cloud/firestore';
 //#endregion
 
@@ -17,8 +17,8 @@ config({
 //#region Discord.js Config
 const discordConfig: ClientOptions = {
 	intents: [
-		// 	'Guilds',
-		// 	'GuildMessages',
+		'Guilds',
+		'GuildMessages',
 		// 	'GuildMembers',
 		'MessageContent'
 	]
@@ -37,6 +37,33 @@ client.on(Events.InteractionCreate, async interaction => {
 		await interaction.reply({ content: 'Starting Backup!', ephemeral: true });
 		invokeInitialBackup(interaction as Interaction);
 	}
+
+	if (interaction.commandName === 'archive') {
+		const archived = interaction.options.get('state')?.value as boolean;
+		const guildId = interaction.guildId;
+		const channelId = interaction.channelId;
+		if (!guildId || !channelId) return;
+		await writeChannelMetadataToFirestore(guildId, channelId, { archived });
+		await interaction.reply({ content: 'Channel archived status updated!', ephemeral: true });
+	}
+});
+
+client.on(Events.GuildCreate, async guild => {
+	createNewGuild(guild);
+});
+
+client.on(Events.MessageCreate, async message => {
+	// Get Guild & Channel ID
+	const guildId = message.guild?.id;
+	const chanId = message.channel.id;
+
+	if (!guildId || !chanId) return;
+	
+	if (await checkChannelArchived(guildId, chanId)) writeMessageToFirestore(guildId, chanId, message);
+});
+
+client.on(Events.GuildDelete, async guild => {
+	console.log('Guild Deleted: ' + guild.name);
 });
 
 client.login(process.env.discordToken);
@@ -50,7 +77,7 @@ client.login(process.env.discordToken);
  * 
  * @param channel - The channel the command was invoked in
  * 
- * @returns void
+ * @returns {boolean} - Whether the backup was successful
  */
 async function invokeInitialBackup(inter: Interaction) {
 	// Starts timer to measure how long the backup takes
@@ -97,4 +124,48 @@ async function invokeInitialBackup(inter: Interaction) {
 	}
 	console.log('Done!');
 	console.log('That took ' + (new Date().getTime() - invokeTime) + 'ms');
+	return true;
+}
+
+/**
+ * Initialises a new guild in the database
+ * 
+ * @param guild - The guild to be initialised
+ * 
+ * @returns {boolean} - Whether the guild was initialised
+ */
+async function createNewGuild(guild: Guild) {
+	if (!guild || !guild.channels || !guild.channels.cache || !guild.icon) return false;
+	// Get all channels in the guild
+	const channels = await convertChannels(guild.channels.cache);
+
+	// Write the guild metadata to the database
+	await writeNewGuildToFirestore(guild.id, guild.icon, guild.name, channels);
+}
+
+/**
+ * Converts a discord channel cache into a list of channel metadata
+ * 
+ * @param channels - The discord channel cache
+ * 
+ * @returns {archivord.Channels} - The list of channel metadata
+ */
+async function convertChannels(channels: Collection<Snowflake, BaseChannel>) {
+	const channelList: archivord.Channels = {};
+	for (const channel of channels.values()) {
+		if (channel.type !== ChannelType.GuildText || !(channel instanceof GuildChannel)) continue;
+		try {
+			const chanData = await channel.fetch();
+			if (!chanData) continue;
+			if ('name' in chanData && typeof chanData.name === 'string') {
+				channelList[channel.id] = {
+					channelName: chanData.name,
+					archived: false
+				};
+			}
+		} catch (error) {
+			console.error('Error fetching channel: ', error);
+		}
+	}
+	return channelList;
 }
