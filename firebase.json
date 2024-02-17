@@ -1,0 +1,54 @@
+{
+  "firestore": {
+    "rules": "Archivord.Firebase/config/firestore.rules",
+    "indexes": "Archivord.Firebase/config/firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "Archivord.API/",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix Archivord.API/ run lint",
+        "npm --prefix Archivord.API/ run build"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "Archivord.UI",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "Archivord.Firebase/config/storage.rules"
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "storage": {
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true
+    },
+    "singleProjectMode": true
+  }
+}

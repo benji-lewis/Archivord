@@ -1,0 +1,38 @@
+name: Deploy to Firebase on merge
+'on':
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install and build Archivord.API
+        run: |
+          cd Archivord.API
+          npm ci
+          npm run build
+      - name: Deploy to Firebase Functions
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+          projectId: archivord-1f2bc
+          serviceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARCHIVORD_1F2BC }}'
+      - name: Install and build Archivord.UI
+        run: |
+          cd ../Archivord.UI
+          npm ci
+          npm run build
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ARCHIVORD_1F2BC }}'
+          channelId: live
+          projectId: archivord-1f2bc

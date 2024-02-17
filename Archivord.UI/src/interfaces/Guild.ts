@@ -1,9 +1,8 @@
-export interface Guild {
-  id: number;
+export interface GuildData {
   name: string;
-  icon: string | null;
-  owner: boolean;
-  permissions: number;
-  permissions_new: string;
-  features: Array<string>;
+  icon: string;
+}
+
+export interface Guild {
+  [key: number]: GuildData;
 }
