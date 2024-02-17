@@ -1,26 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Timestamp } from 'firebase-admin/firestore';
 
-export namespace archivord {
-	interface Guilds {
-		[guildId: string]: Guild;
-	}
-
+declare module archivord {
 	interface Guild {
-		guildName: string;
-		channels?: {
-			[channelId: string]: Channel;
-		};
+		guildName?: string;
+		channels?: Channels;
 	}
 
 	interface Channel {
-		channelName: string;
-		roles: string[];
+		channelName?: string;
+		roles?: string[];
 		messages?: Messages;
-	}
-
-	interface Messages {
-		[messageId: string]: Message;
+		archived?: boolean;
 	}
 
 	interface Message {
@@ -30,4 +21,12 @@ export namespace archivord {
 		authorNick?: string;
 		timestamp: Timestamp;
 	}
+
+	interface Guilds { [guildId: string]: Guild; }
+
+	interface Channels { [channelId: string]: Channel; }
+
+	interface Messages { [messageId: string]: Message; }
 }
+
+export = archivord;
