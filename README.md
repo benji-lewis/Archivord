@@ -173,7 +173,7 @@ Copyright (C) Ben Lewis 2023. See [LICENSE.md](https://github.com/benjisoft/Arch
 <!-- CONTACT -->
 ## Contact
 
-Ben Lewis - [@benjisoft](https://twitter.com/benjisoft) - benji@benjilewis.dev.com
+Ben Lewis - [@benjisoft](https://twitter.com/benjisoft) - oss@benjilewis.dev
 Oli Beardsall - [@bubcool1](https://twitter.com/bubcool1)
 
 Project Link: [https://github.com/benjisoft/Archivord](https://github.com/benjisoft/Archivord)
