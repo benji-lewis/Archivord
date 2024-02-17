@@ -176,6 +176,7 @@ This software is distributed under the GNU AGPL v3.0 (or later) license. This wi
 ## Contact
 
 Ben Lewis - [@benjisoft](https://twitter.com/benjisoft) - oss@benjilewis.dev
+
 Oli Beardsall - [@bubcool1](https://twitter.com/bubcool1)
 
 Project Link: [https://github.com/benjisoft/Archivord](https://github.com/benjisoft/Archivord)
