@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Ben Lewis <oss@benjilewis.dev>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 import axios from 'axios';
 import type { archivord } from '../index.d';
 import type { RequestHandler } from 'express';

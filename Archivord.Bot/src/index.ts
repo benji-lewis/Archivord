@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Ben Lewis <oss@benjilewis.dev>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 //#region Imports
 import { BaseChannel, ChannelType, Client, ClientOptions, Collection, Events, Guild, GuildChannel, Interaction, Snowflake, TextChannel } from 'discord.js';
 import { resolve } from 'path';
