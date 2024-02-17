@@ -148,6 +148,8 @@ See the [open issues](https://github.com/benjisoft/Archivord/issues) for a full 
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
+**Always include [reuse](https://reuse.software) headers in your code.**
+
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
@@ -164,7 +166,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Copyright (C) Ben Lewis 2023. See [LICENSE.md](https://github.com/benjisoft/Archivord/blob/main/LICENSE.md) for more information. 
+This software is distributed under the GNU AGPL v3.0 (or later) license. This will be noted in all files in the form of a [reuse](https://reuse.software) header. Where a header is not present, the code remains Copyright (C) Ben Lewis 2024. See [LICENSE.md](https://github.com/benjisoft/Archivord/blob/main/LICENSE.md) for more information. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
