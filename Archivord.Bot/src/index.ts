@@ -3,11 +3,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 //#region Imports
+import * as archivord from './index.d';
 import { BaseChannel, ChannelType, Client, ClientOptions, Collection, Events, Guild, GuildChannel, Interaction, Snowflake, TextChannel } from 'discord.js';
 import { resolve } from 'path';
-import * as archivord from './index.d';
-import { writeNewGuildToFirestore, writeChannelMetadataToFirestore, writeMessagesToFirestore, checkChannelArchived, writeMessageToFirestore } from './helpers/firebase';
 import { Timestamp } from '@google-cloud/firestore';
+import { writeNewGuildToFirestore, writeChannelMetadataToFirestore, writeMessagesToFirestore, checkChannelArchived } from './helpers/firebase';
+import { sendMessageToSNS } from './helpers/aws';
 //#endregion
 
 //#region Dotenv Config
@@ -52,22 +53,27 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-client.on(Events.GuildCreate, async guild => {
-	createNewGuild(guild);
-});
+client.on(Events.GuildCreate, createNewGuild);
 
 client.on(Events.MessageCreate, async message => {
 	// Get Guild & Channel ID
 	const guildId = message.guild?.id;
-	const chanId = message.channel.id;
+	const channelId = message.channel.id;
 
-	if (!guildId || !chanId) return;
+	if (!guildId || !channelId) return;
 	
-	if (await checkChannelArchived(guildId, chanId)) writeMessageToFirestore(guildId, chanId, message);
-});
-
-client.on(Events.GuildDelete, async guild => {
-	console.log('Guild Deleted: ' + guild.name);
+	const SQSData: archivord.aws.ISQSMessage = {
+		messageType: 'message',
+		guildId,
+		channelId,
+		messageId: message.id,
+		content: message.content,
+		authorId: message.author.id,
+		authorUsername: message.author.username,
+		timestamp: Timestamp.fromDate(message.createdAt)
+	};
+	
+	if (await checkChannelArchived(guildId, channelId)) sendMessageToSNS(SQSData);
 });
 
 client.login(process.env.discordToken);
@@ -136,10 +142,10 @@ async function invokeInitialBackup(inter: Interaction) {
  * 
  * @param guild - The guild to be initialised
  * 
- * @returns {boolean} - Whether the guild was initialised
+ * @returns {void} - Whether the guild was initialised
  */
 async function createNewGuild(guild: Guild) {
-	if (!guild || !guild.channels || !guild.channels.cache || !guild.icon) return false;
+	if (!guild || !guild.channels || !guild.channels.cache || !guild.icon) return;
 	// Get all channels in the guild
 	const channels = await convertChannels(guild.channels.cache);
 
