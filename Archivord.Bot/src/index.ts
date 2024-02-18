@@ -130,6 +130,7 @@ async function invokeInitialBackup(inter: Interaction) {
 			};
 			messageList.push(message.id);
 		});
+		//TODO: Convert to SQS
 		await writeMessagesToFirestore(guildId as string, chanId as string, msgData);
 	}
 	console.log('Done!');
