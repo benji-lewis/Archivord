@@ -1,0 +1,19 @@
+{
+  "name": "archivord.processing",
+  "version": "1.0.0",
+  "description": "Handles the processing of messages from a SQS queue within Lambda",
+  "main": "dist/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjisoft/Archivord.git#main"
+  },
+  "author": "Ben Lewis",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/benjisoft/Archivord/issues"
+  },
+  "homepage": "https://github.com/benjisoft/Archivord/tree/main#readme"
+}
