@@ -1,6 +1,6 @@
 //#region Imports
 import dotenv from 'dotenv';
-import AWS from 'aws-sdk';
+import { SNS } from '@aws-sdk/client-sns';
 import * as archivord from '../index.d';
 //#endregion
 
@@ -9,7 +9,6 @@ dotenv.config();
 //#endregion
 
 //#region AWS Config
-AWS.config.update({ region: 'eu-west-2' });
 //TODO: Properly .env this
 const msgArn = 'arn:aws:sns:eu-west-2:975050122093:Archivord-Messages';
 //#endregion
@@ -29,9 +28,7 @@ async function sendToSNS(Message: object, TopicArn: string): Promise<boolean> {
 	};
 
 	// Create promise and SNS service object
-	const publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' })
-		.publish(params)
-		.promise();
+	const publishTextPromise = new SNS({ region: 'eu-west-2' }).publish(params);
 
 	// Handle promise's fulfilled/rejected states
 	try {
