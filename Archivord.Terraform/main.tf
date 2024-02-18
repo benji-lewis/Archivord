@@ -1,3 +1,11 @@
+terraform { 
+	cloud { 
+		organization = "BenjiLewis" 
+		workspaces { 
+			name = "archivord" 
+		} 
+	} 
+}
 module "ingestion" {
 	source = "./modules/ingestion"
 	providers = {
