@@ -1,0 +1,2 @@
+ipv4CIDRAllow = ["1.1.1.1/32"]
+ipv6CIDRAllow = [":::::/64"]
