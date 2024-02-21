@@ -2,9 +2,9 @@ import axios from 'axios';
 import { getToken } from "./getToken"
 
 export class httpClient {
-  static get(url: string, body?: object | null) {
+  static get(url: string, params?: object) {
     return axios.get(url, {
-      params: body,
+      params,
       headers: { ...this.getAuthorizationHeader(), }
     }).then(res => res.data);
   }

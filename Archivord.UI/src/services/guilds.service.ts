@@ -16,6 +16,7 @@ export const getGuildPreview = (guildId: string): Promise<GuildPreview> => {
   return httpClient.get(`https://discord.com/api/guilds/${guildId}/preview`)
 }
 
-export const getChannelMessages = (guildId: string, channelId: string): Promise<Message> => {
-  return httpClient.get(`${window.config.API}/guilds/${guildId}/channels/${channelId}/messages`)
+export const getChannelMessages = (guildId: string, channelId: string, before: string): Promise<Message> => {
+  const params = before ? { limitTo: 100, before } : { limitTo: 100 }
+  return httpClient.get(`${window.config.API}/guilds/${guildId}/channels/${channelId}/messages`, params);
 }
