@@ -25,6 +25,7 @@ export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: string | unde
     if (selectedGuild)
       guildsService.getGuildChannels(selectedGuild).then(res => setChannels(res))
     setSelectedChannel(null)
+    setMessages([])
   }, [selectedGuild])
 
   useEffect(() => {
@@ -38,7 +39,6 @@ export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: string | unde
   }
 
   return (
-    <>
       <Box
         sx={{ 
           display: 'flex',
@@ -56,9 +56,7 @@ export const ChannelSideBar = ({ selectedGuild }: { selectedGuild: string | unde
           ))}
           </List>
         </Drawer>
-        {/* TODO: Insert chats here */}
         <Messages messages={messages} />
       </Box>
-    </>
-  );
+  )
 }
