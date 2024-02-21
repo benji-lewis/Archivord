@@ -11,11 +11,11 @@ interface ServerCardProps {
 
 const ListItemButtonStyled = styled(ListItemButton)(({ theme }) => ({
   '&.Mui-selected': {
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.backgroundColours.light,
     color: theme.palette.common.white,
   },
   '&:hover': {
-    backgroundColor: theme.palette.secondary.dark + '!important',
+    backgroundColor: theme.backgroundColours.main + '!important',
     color: theme.palette.common.white + '!important',
   }
 }))
@@ -25,12 +25,14 @@ export const ChannelCard = ({ id, name, category, isSelected = false, selectFunc
     selectFunction(id)
   }
 
+  const getName = category ? `${category}: ${name}` : name
+
   return (
     <ListItemButtonStyled selected={isSelected} onClick={navigateToGuild}>
       <ListItemIcon>
         <TagRoundedIcon htmlColor="#949BA4" />
       </ListItemIcon>
-      <ListItemText primary={name} />
+      <ListItemText primary={getName} />
     </ListItemButtonStyled>
   )
 }
