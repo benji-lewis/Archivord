@@ -354,3 +354,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Config files
+config.ts
