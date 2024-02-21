@@ -23,7 +23,7 @@
     <a href="https://archivord.readme.io/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://archivord.benjilewis.dev/">View Demo</a>
+    <a href="https://archivord.benjilewis.dev/">View Demo (Coming Soon)</a>
     ·
     <a href="https://github.com/benjisoft/Archivord/issues">Report Bug</a>
     ·
@@ -74,11 +74,16 @@ Archivord has a simple purpose. To retain as much data as possible to show futur
 
 ### Built With
 
-* [![Typescript][Typescript]][TS-url]
-* [![React][React.js]][React-url]
-* [![Vite][Vite.js]][Vite-url]
-* [![Firebase][Firebase]][Firebase-url]
-* [![Discord][Discord]][Discord-url]
+[![Typescript][Typescript]][TS-url]
+[![React][React.js]][React-url]
+[![Vite][Vite.js]][Vite-url]
+[![Firebase][Firebase]][Firebase-url]
+[![Discord][Discord]][Discord-url]
+[![Terraform][Terraform]][Terraform-url]
+[![AWS][AWS]][AWS-url]
+[![Docker][Docker]][Docker-url]
+[![Kubernetes][Kubernetes]][Kubernetes-url]
+[![AWA][AWA]][AWA-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -125,14 +130,14 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p> --> -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Continuous Backup
+- [x] Continuous Backup
 - [ ] Security Features
 	- [ ] [Restricting viewing of data to those who have the relevant roles within each server.](https://github.com/benjisoft/Archivord/issues/10)
     - [ ] Rate Limiting
@@ -208,7 +213,8 @@ Project Link: [https://github.com/benjisoft/Archivord](https://github.com/benjis
 [license-url]: https://github.com/benjisoft/Archivord/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/benji-lewis
-[product-screenshot]: Archivord.Images/screenshot.png
+<!-- [product-screenshot]: Archivord.Images/screenshot.png -->
+[product-screenshot]: https://img.devrant.com/devrant/rant/c_1512974_1Tfcm.jpg
 [Typescript]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
 [TS-url]: https://www.typescriptlang.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
@@ -219,3 +225,13 @@ Project Link: [https://github.com/benjisoft/Archivord](https://github.com/benjis
 [Firebase-url]: https://firebase.google.com/
 [Discord]: https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white
 [Discord-url]: https://discord.com/
+[Terraform]: https://img.shields.io/badge/Terraform-623CE4?style=for-the-badge&logo=terraform&logoColor=white
+[Terraform-url]: https://www.terraform.io/
+[AWS]: https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white
+[AWS-url]: https://aws.amazon.com/
+[Docker]: https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
+[Kubernetes]: https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white
+[Kubernetes-url]: https://kubernetes.io/
+[AWA]: https://img.shields.io/badge/Arctic_World_Archive-177d81?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjY3Ljg0IiB3aWR0aD0iOTYwIiB4bWxuczp2PSJodHRwczovL3ZlY3RhLmlvL25hbm8iPjxwYXRoIGQ9Ik0wIDI2Ny43MTd2LS4xMzFsNTguMzgyLTEzMy43MTNMMTE2Ljc2NC4xNmwxMS43OTUtLjA4NCAxMS43OTUtLjA4NCA1OC4zNTEgMTMzLjY4NCA1OC4zNTEgMTMzLjY4NC4xMzMuMjQ0LjEzMy4yNDQtMTEuNjE5LS4wODQtMTEuNjE5LS4wODQtNDYuODAxLTEwNy4zNi00Ni44MDEtMTA3LjM2LTMuNTA0LTguODAzLTMuNTA0LTguODAzLTEuOTI0LTUuNzU3LTEuOTI0LTUuNzU3LS4zNTEtMS4zODEtLjM1MS0xLjM4MS0uMzQxLjExNC0uMzQxLjExNC0uNzc3IDIuNzA3LS43NzcgMi43MDctMS4xNDYgMy4zNi0xLjE0NiAzLjM2LTIuMTc5IDUuNjg0LTIuMTc5IDUuNjg0LTIuNTcyIDYuMTU2LTIuNTcyIDYuMTU2TDY4Ljk5NyAxNjIuNCAyMy4xMDEgMjY3LjY4bC0xMS41NTEuMDg0TDAgMjY3Ljg0OHptMjkyLjk4MS0xMzMuMjMzTDIzNC43NzMgMS4xMmwtLjI3OC0uNTYtLjI3OC0uNTYgMTEuNjExLjAwOSAxMS42MTEuMDA5IDQ2LjcyIDEwNy4yMzQgNDYuNzIgMTA3LjIzNCAzLjExIDcuNzE4IDMuMTEgNy43MTggMS43NTcgNC45NiAxLjc1NyA0Ljk2IDEuMDAzIDMuMjk3IDEuMDAzIDMuMjk3LjMyMS0uMTA3LjMyMS0uMTA3IDEuNDM3LTQuNjMgMS40MzctNC42MyAyLjA1My01LjQ3OCAyLjA1My01LjQ3OCAyLjY3NC02LjUyMiAyLjY3NC02LjUyMiA0NS41MjctMTA0LjY0TDQ2Ni42NDMgMy42OGwuOC0xLjg0LjgtMS44NEg0ODBoMTEuNzU2bC44IDEuODQuOCAxLjg0IDQ1LjUyNyAxMDQuNjQgNDUuNTI3IDEwNC42NCAyLjY3NCA2LjUyMiAyLjY3NCA2LjUyMiAyLjA1MyA1LjQ3OCAyLjA1MyA1LjQ3OCAxLjQ0IDQuNjQgMS40NCA0LjY0aC4zODMuMzgzbC43ODEtMi43Mi43ODEtMi43Mi45NzUtMi44OC45NzUtMi44OCAyLjItNS43NiAyLjItNS43NiAxLjkwNy00LjY0IDEuOTA3LTQuNjQgNDYuNjYxLTEwNy4xMTFMNzAyLjU2LjAxN2wxMS42MTEtLjAwOUw3MjUuNzgzIDBsLS4yNzguNTYtLjI3OC41Ni01OC4yMDggMTMzLjM2NC01OC4yMDggMTMzLjM2NC0xMS42Ni0uMDg0LTExLjY2LS4wODQtNDYuMDMyLTEwNS42LTQ2LjAzMi0xMDUuNi0yLjU5OS02LjI0LTIuNTk5LTYuMjQtMi40ODctNi41Ni0yLjQ4Ny02LjU2LTEuNDg3LTQuNzk0LTEuNDg3LTQuNzk0LS4xMzktLjEzOS0uMTM5LS4xMzktLjEzOS4xMzktLjEzOS4xMzktMS40ODcgNC43OTQtMS40ODcgNC43OTQtMi40ODcgNi41Ni0yLjQ4NyA2LjU2LTIuNiA2LjI0LTIuNiA2LjI0LTQ2LjAzMiAxMDUuNi00Ni4wMzIgMTA1LjYtMTEuNjYuMDg0LTExLjY2LjA4NHptNDA5LjgyOSAxMzMuMTJsLjEzMi0uMjQ0IDU4LjM1My0xMzMuNjg0TDgxOS42NDctLjAwOGwxMS43OTUuMDg0IDExLjc5NS4wODQgNTguMzgyIDEzMy43MTNMOTYwIDI2Ny41ODZ2LjEzMS4xMzFsLTExLjU1MS0uMDg0LTExLjU1MS0uMDg0LTQ1Ljg5NS0xMDUuMjgtNDUuODk1LTEwNS4yOC0yLjU3Mi02LjE1Ni0yLjU3Mi02LjE1Ni0yLjE3OS01LjY4NC0yLjE3OS01LjY4NC0xLjE0Ni0zLjM2LTEuMTQ2LTMuMzYtLjc3Ny0yLjcwNy0uNzc3LTIuNzA3LS4zNDEtLjExNC0uMzQxLS4xMTQtLjM1MSAxLjM4MS0uMzUxIDEuMzgxLTEuOTI0IDUuNzU3LTEuOTI0IDUuNzU3LTMuNTA0IDguODAzLTMuNTA0IDguODAzLTQ2LjgwMSAxMDcuMzYtNDYuODAxIDEwNy4zNi0xMS42MTkuMDg0LTExLjYxOS4wODR6Ii8+PC9zdmc+&logoColor=white
+[AWA-url]: https://www.arcticworldarchive.org/
