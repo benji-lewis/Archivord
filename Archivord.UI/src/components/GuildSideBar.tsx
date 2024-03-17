@@ -9,8 +9,7 @@ const Drawer = styled('div', {})(({ theme }) => ({
   backgroundColor: theme.palette.primary.dark,
   color: theme.palette.primary.light,
   width: drawerWidth,
-  height: '100vh'
-
+  height: 'calc(100vh - 60px)',
 }));
 
 interface GuildSideBar {

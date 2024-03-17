@@ -21,3 +21,9 @@ a {
 a:hover {
   color: #5865F2;
 }
+
+body {
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+}
