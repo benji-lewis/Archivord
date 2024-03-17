@@ -16,12 +16,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { getUiColour } from "../helpers/colourHelper";
 import { getAcronym } from "../helpers/stringHelper";
 
-export const NavBar = ({ }) => {
+export const NavBar = () => {
   const pages = [
-    {
-      title: "Home",
-      route: '/'
-    },
     {
       title: "Archive",
       route: "/archive"
